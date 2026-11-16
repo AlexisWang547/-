@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#fff4dc">
+<title>MY LITTLE SEOUL</title>
+<style>
+:root{
+ --cream:#fff8e9;--paper:#fffdf6;--ink:#51465e;--muted:#8d8193;
+ --pink:#ffb8c9;--pink2:#ffe0e8;--blue:#a9d9ef;--blue2:#e0f4ff;
+ --yellow:#ffdf83;--yellow2:#fff2c8;--mint:#bce8d4;--mint2:#e4f8ee;
+ --purple:#c9b8f0;--purple2:#f0eaff;--line:#f0dfc7;
+ --shadow:0 8px 22px rgba(111,86,93,.10);
+}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at 10% 10%,#fff0f2 0,transparent 28%),radial-gradient(circle at 90% 15%,#e9f7ff 0,transparent 28%),var(--cream);color:var(--ink);font-family:"Trebuchet MS","PingFang SC","Microsoft YaHei",sans-serif;min-height:100vh}
+button{font:inherit;border:0;cursor:pointer;color:inherit}
+button:focus-visible{outline:3px solid #8bbfe3;outline-offset:3px}
+.hidden{display:none!important}
+.wrap{max-width:980px;margin:0 auto;padding:18px 16px 100px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:18px}
+.brand{font-weight:900;letter-spacing:1.5px;font-size:18px;color:#77618e}
+.pill{background:#fff;border:2px solid var(--line);border-radius:999px;padding:8px 12px;font-size:13px;font-weight:800;box-shadow:0 3px 0 #f0e3d3}
+.hero{min-height:75vh;display:grid;place-items:center;text-align:center;padding:26px 10px}
+.hero-card{max-width:580px;width:100%;background:rgba(255,255,255,.84);border:3px solid white;border-radius:34px;padding:30px 22px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero-art{font-size:76px;line-height:1.3;filter:drop-shadow(0 6px 0 rgba(255,205,137,.35))}
+h1{font-size:clamp(28px,7vw,44px);margin:10px 0 4px;letter-spacing:2px;color:#79638e}
+.subtitle{color:#a28eaa;font-size:13px;letter-spacing:2px;margin-bottom:22px}
+.letter{background:#fff9ed;border:2px dashed #edcfaa;border-radius:20px;text-align:left;padding:18px 18px;line-height:1.9;font-size:14px;margin:20px 0}
+.primary{background:#ffb5c7;padding:13px 22px;border-radius:18px;font-weight:900;box-shadow:0 5px 0 #e98da7;transition:.15s}
+.primary:active,.soft-btn:active,.place:active{transform:translateY(3px);box-shadow:none}
+.secondary{background:#e5f4ff;padding:11px 16px;border-radius:15px;font-weight:800;box-shadow:0 4px 0 #b6d8e9}
+.section-title{font-size:24px;margin:4px 0 5px;color:#77618e}
+.hint{color:var(--muted);font-size:13px;line-height:1.6;margin:0 0 18px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:15px 0 18px}
+.stat{background:#fff;border:2px solid white;border-radius:18px;padding:11px;text-align:center;box-shadow:var(--shadow)}
+.stat b{display:block;font-size:20px;color:#816c9b}.stat small{color:#a08fa6;font-size:11px}
+.progress-shell{height:10px;border-radius:99px;background:#eee5ed;overflow:hidden;margin-top:7px}
+.progress-fill{height:100%;background:linear-gradient(90deg,#ffb7c8,#ffdf83);width:0%;border-radius:99px;transition:width .3s}
+.city-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.place{min-height:142px;text-align:left;padding:15px;border-radius:24px;border:3px solid white;box-shadow:var(--shadow);position:relative;overflow:hidden;transition:.15s}
+.place .emoji{font-size:40px;display:block;margin-bottom:6px}
+.place strong{font-size:16px;display:block}.place small{font-size:12px;opacity:.75}
+.place:after{content:"✦";position:absolute;right:15px;top:12px;font-size:20px;opacity:.45}
+.place.pink{background:var(--pink2)}.place.blue{background:var(--blue2)}.place.yellow{background:var(--yellow2)}.place.mint{background:var(--mint2)}
+.place.purple{background:var(--purple2)}
+.panel{background:rgba(255,255,255,.9);border:3px solid white;border-radius:26px;padding:18px;box-shadow:var(--shadow);margin:14px 0}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.back{background:white;border:2px solid var(--line);padding:8px 13px;border-radius:14px;font-weight:800}
+.academy-scene{background:linear-gradient(180deg,#dff4ff 0 55%,#f7e5c9 55% 100%);border:4px solid white;border-radius:28px;padding:18px 14px 15px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.cloud{position:absolute;background:white;border-radius:40px;width:75px;height:25px;opacity:.8}
+.cloud:before,.cloud:after{content:"";position:absolute;background:white;border-radius:50%;width:30px;height:30px;top:-12px}
+.cloud:before{left:12px}.cloud:after{right:12px;top:-8px}
+.cloud.c1{top:23px;left:10%}.cloud.c2{top:48px;right:8%;transform:scale(.7)}
+.blackboard{position:relative;z-index:1;background:#7fb5a0;border:7px solid #d7a978;border-radius:17px;padding:13px 10px;text-align:center;color:#fffdf1;box-shadow:0 6px 0 rgba(117,84,64,.15);max-width:380px;margin:4px auto 12px}
+.blackboard small{display:block;font-size:11px;opacity:.9;letter-spacing:1px}.blackboard strong{font-size:36px;letter-spacing:8px}
+.teacher-row{display:flex;align-items:end;justify-content:center;gap:12px;position:relative;z-index:2}
+.teacher{font-size:75px;line-height:1;filter:drop-shadow(0 5px 0 rgba(114,90,80,.12));animation:bob 2.4s ease-in-out infinite}
+.speech{background:#fff;border:2px solid #f3d8bd;border-radius:18px;padding:10px 13px;max-width:230px;font-size:13px;line-height:1.55;box-shadow:0 4px 0 rgba(170,130,100,.12)}
+.speech:after{content:"";display:block;position:absolute}
+@keyframes bob{50%{transform:translateY(-5px) rotate(2deg)}}
+.lesson-tabs{display:flex;gap:8px;overflow-x:auto;padding:5px 1px 12px}
+.tab{flex:0 0 auto;background:#fff;border:2px solid var(--line);padding:9px 13px;border-radius:14px;font-size:12px;font-weight:800}
+.tab.active{background:#fff0b9;border-color:#f0cf75}
+.letter-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.letter-card{background:#fff;border:3px solid #fff;box-shadow:0 4px 0 #eee4d9;border-radius:20px;padding:13px 5px;text-align:center;min-height:112px}
+.letter-card .glyph{font-size:36px;font-weight:900;color:#826ba0;display:block}
+.letter-card small{display:block;color:#9b8aa1;font-size:11px;margin-top:3px}
+.letter-card.learned{background:#e8f8ef;border-color:#bde7d1}
+.letter-card .tick{font-size:11px;color:#5eaa82;font-weight:900}
+.lesson-detail{text-align:center;background:#fff8ed;border:2px dashed #edcfaa;border-radius:22px;padding:18px;margin-top:14px}
+.big-glyph{font-size:76px;color:#8b70a8;font-weight:900;line-height:1.1}
+.quiz-options{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px}
+.quiz-option{background:#fff;border:3px solid #f0e4d6;border-radius:16px;padding:13px 5px;font-size:25px;font-weight:900}
+.quiz-option.correct{background:#e4f8ed;border-color:#9edbb8}
+.quiz-option.wrong{background:#ffe9eb;border-color:#f3aeb8}
+.feedback{margin-top:12px;border-radius:15px;padding:11px;background:#fff;font-size:13px;line-height:1.5}
+.reward{background:#fff0bf;border:2px solid #f2d67f;border-radius:16px;padding:12px;text-align:center;font-weight:900;margin-top:12px}
+.footer-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,253,246,.95);backdrop-filter:blur(10px);border-top:2px solid #f1e5d7;padding:9px max(12px,env(safe-area-inset-right)) calc(9px + env(safe-area-inset-bottom));display:flex;justify-content:center;gap:8px;z-index:20}
+.footer-nav button{background:#fff;border:2px solid #f0e4d6;border-radius:14px;padding:9px 12px;font-size:12px;font-weight:800}
+.footer-nav button.active{background:#fff0bf;border-color:#f0d17b}
+.note{font-size:12px;color:#9a8a9d;line-height:1.6}
+.toast{position:fixed;left:50%;bottom:85px;transform:translateX(-50%);background:#594e68;color:white;padding:10px 16px;border-radius:99px;font-size:13px;z-index:50;box-shadow:var(--shadow)}
+@media(min-width:700px){.city-grid{grid-template-columns:repeat(4,1fr)}.place{min-height:175px}.wrap{padding-top:25px}.academy-scene{padding:25px}.letter-grid{grid-template-columns:repeat(6,1fr)}}
+</style>
+</head>
+<body>
+<div id="app">
+  <section id="welcome" class="hero">
+    <div class="hero-card">
+      <div class="hero-art">🌙🏙️✨</div>
+      <h1>MY LITTLE SEOUL</h1>
+      <div class="subtitle">A LITTLE CITY, JUST FOR YOU</div>
+      <div class="letter">
+        <b>雨菡：</b><br>
+        飞机落地以后，这座城市会显得有点大。你不用第一天就听懂所有话。<br>
+        练习室里有 James。你们都说中文，所以门从那里推开。<br>
+        想认字母，去学院找 Han。咖啡馆里的 Haru 句子很短，中文写在下面。<br>
+        这不是真正的首尔全貌。它很小，只够你先把第一句说出口。<br>
+        欢迎来到 MY LITTLE SEOUL。
+      </div>
+      <button class="primary" onclick="enterCity()">推开练习室的门 →</button>
+      <p class="note">一个小小的城市，和第一句韩语的开始。</p>
+    </div>
+  </section>
+
+  <main id="city" class="wrap hidden">
+    <div class="topbar"><div class="brand">🌙 MY LITTLE SEOUL</div><div class="pill">⭐ <span id="coinsTop">0</span> 金币</div></div>
+    <h2 class="section-title">晚上好，雨菡！</h2>
+    <p class="hint">首尔的灯刚刚亮起来。今天想先去哪里看看？</p>
+    <div class="stats">
+      <div class="stat"><b id="levelText">Lv.1</b><small id="levelName">刚落地</small></div>
+      <div class="stat"><b id="xpText">0 XP</b><small>经验值</small></div>
+      <div class="stat"><b id="streakText">0 天</b><small>连续学习</small></div>
+    </div>
+    <div class="panel">
+      <div class="row"><b>🌱 城市成长进度</b><small id="nextLevel">还差 50 XP 升级</small></div>
+      <div class="progress-shell"><div id="xpBar" class="progress-fill"></div></div>
+    </div>
+    <div class="row"><h3 class="section-title" style="font-size:19px">今天去哪里？</h3><span class="note">选择一个地点</span></div>
+    <div class="city-grid">
+      <button class="place pink" onclick="showComing('练习室 · James')"><span class="emoji">🎧</span><strong>练习室</strong><small>James 在里面等你</small></button>
+      <button class="place blue" onclick="openAcademy()"><span class="emoji">🏫</span><strong>学院</strong><small>和 Han 老师学韩文</small></button>
+      <button class="place yellow" onclick="showComing('咖啡馆 · Haru')"><span class="emoji">☕</span><strong>咖啡馆</strong><small>和 Haru 练习点单</small></button>
+      <button class="place mint" onclick="showComing('我的房间')"><span class="emoji">🪴</span><strong>我的房间</strong><small>把小空间装饰起来</small></button>
+    </div>
+    <div class="panel">
+      <b>📮 今天的纸条</b>
+      <p style="margin-bottom:0;line-height:1.7;font-size:14px">“不用一下子学会全部。今天认识一个字母，也算向这座城市走近了一步。”</p>
+      <small class="note">— 来自学院的一张小纸条</small>
+    </div>
+    <p class="note">V1 开发进行中：今天先开放学院的第一间教室。</p>
+  </main>
+
+  <main id="academy" class="wrap hidden">
+    <div class="topbar">
+      <button class="back" onclick="goCity()">← 城市</button>
+      <div class="brand">🏫 LITTLE SEOUL ACADEMY</div>
+      <div class="pill">⭐ <span id="academyCoins">0</span></div>
+    </div>
+    <h2 class="section-title">欢迎来到字母教室！</h2>
+    <p class="hint">今天从最基础的韩文字母开始。慢慢来，Han 老师会陪你练习。</p>
+    <div class="academy-scene">
+      <div class="cloud c1"></div><div class="cloud c2"></div>
+      <div class="blackboard"><small>오늘의 한글 · 今日韩文</small><strong id="boardLetters">ㅏ ㅓ ㅗ</strong></div>
+      <div class="teacher-row">
+        <div class="teacher" aria-label="卡通猫咪老师">🐻‍❄️</div>
+        <div class="speech"><b>Professor Han：</b><br><span id="teacherLine">안녕! 我们今天先认识六个基础元音。点一点字母卡片，听听它们的声音吧！</span></div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="row"><b>📚 第一课：六个基础元音</b><span class="pill" id="lessonProgress">0 / 6 已认识</span></div>
+      <div class="progress-shell"><div id="lessonBar" class="progress-fill"></div></div>
+      <p class="note">小提示：中文发音只是入门近似提示，真正发音请多听标准韩语语音。</p>
+    </div>
+    <div class="lesson-tabs">
+      <button class="tab active">🌼 元音花园</button>
+      <button class="tab" onclick="toast('辅音教室将在下一阶段开放！')">🧩 辅音拼拼乐 · 即将开放</button>
+      <button class="tab" onclick="toast('拼字工坊将在下一阶段开放！')">🧸 拼字工坊 · 即将开放</button>
+    </div>
+    <div class="letter-grid" id="letterGrid"></div>
+    <div id="lessonDetail" class="lesson-detail hidden">
+      <div class="note">今天认识这个字母</div>
+      <div class="big-glyph" id="detailGlyph">ㅏ</div>
+      <h3 id="detailName" style="margin:4px 0">ㅏ · a</h3>
+      <p id="detailDesc" style="margin:4px 0 12px;font-size:14px">发音近似“啊”</p>
+      <button class="secondary" onclick="speakCurrent()">🔊 听听发音</button>
+      <button class="primary" style="margin-left:6px" onclick="startQuiz()">我记住啦！来挑战</button>
+    </div>
+    <div id="quizPanel" class="panel hidden">
+      <div class="row"><b>⭐ 字母小挑战</b><span class="note" id="quizCount">第 1 题</span></div>
+      <p id="quizQuestion" style="text-align:center;font-weight:800;font-size:16px">请选择发音为 a 的字母：</p>
+      <div class="quiz-options" id="quizOptions"></div>
+      <div id="quizFeedback" class="feedback hidden"></div>
+      <div class="row" style="margin-top:12px">
+        <span class="note">答对就能点亮一颗小星星！</span>
+        <button id="nextQuiz" class="primary hidden" onclick="nextQuestion()">下一题 →</button>
+      </div>
+    </div>
+    <div id="lessonComplete" class="panel hidden" style="text-align:center">
+      <div style="font-size:48px">🎉🌟🎉</div>
+      <h3>元音花园第一圈完成！</h3>
+      <p>你已经认识了六个基础元音。很棒！</p>
+      <div class="reward">获得 +30 XP　+12 金币</div>
+      <button class="primary" style="margin-top:14px" onclick="goCity()">回到小首尔</button>
+    </div>
+  </main>
+</div>
+
+<nav id="bottomNav" class="footer-nav hidden">
+  <button class="active" onclick="goCity()">🏙️ 城市</button>
+  <button onclick="openAcademy()">🏫 学院</button>
+  <button onclick="showComing('句子本')">📖 句子本</button>
+  <button onclick="showComing('我的')">🌷 我的</button>
+</nav>
+<div id="toast" class="toast hidden"></div>
+
+<script>
+const vowels = [
+ {ch:"ㅏ",roman:"a",hint:"发音近似“啊”",detail:"嘴巴自然张开，发出清晰的 a 音。"},
+ {ch:"ㅓ",roman:"eo",hint:"介于“哦”和“呃”之间",detail:"这是韩语特有元音，先听标准发音，不要完全套用中文。"},
+ {ch:"ㅗ",roman:"o",hint:"发音近似“哦”",detail:"嘴唇稍微收圆，发出 o 音。"},
+ {ch:"ㅜ",roman:"u",hint:"发音近似“乌”",detail:"嘴唇向前收圆，发出 u 音。"},
+ {ch:"ㅡ",roman:"eu",hint:"中文里没有完全相同的音",detail:"嘴唇放松、不要明显撅起，先熟悉它的声音。"},
+ {ch:"ㅣ",roman:"i",hint:"发音近似“衣”",detail:"嘴角自然展开，发出 i 音。"}
+];
+const defaultSave={version:1,hasEntered:false,xp:0,coins:0,learned:[],lessonRewarded:false,lastStudyDate:null,streak:0};
+let save;
+try{save=Object.assign({},defaultSave,JSON.parse(localStorage.getItem("mls-save")||"{}"));}catch(e){save={...defaultSave};}
+let selectedIndex=0, quizIndex=0, currentQuestion=null, answered=false, toastTimer=null;
+function persist(){localStorage.setItem("mls-save",JSON.stringify(save));updateStats();}
+function updateStats(){
+ document.getElementById("coinsTop").textContent=save.coins;
+ document.getElementById("academyCoins").textContent=save.coins;
+ document.getElementById("xpText").textContent=save.xp+" XP";
+ document.getElementById("streakText").textContent=save.streak+" 天";
+ let levels=[{xp:0,name:"刚落地"},{xp:50,name:"会打招呼"},{xp:130,name:"能指着买"},{xp:240,name:"能接一句"},{xp:380,name:"能自己出门"}];
+ let idx=0;for(let i=0;i<levels.length;i++){if(save.xp>=levels[i].xp)idx=i;}
+ document.getElementById("levelText").textContent="Lv."+(idx+1);
+ document.getElementById("levelName").textContent=levels[idx].name;
+ let next=levels[idx+1];let base=levels[idx].xp;
+ document.getElementById("nextLevel").textContent=next?(next.xp-save.xp)+" XP 升级":"最高等级";
+ document.getElementById("xpBar").style.width=next?Math.max(0,Math.min(100,(save.xp-base)/(next.xp-base)*100))+"%":"100%";
+ document.getElementById("lessonProgress").textContent=save.learned.length+" / 6 已认识";
+ document.getElementById("lessonBar").style.width=(save.learned.length/6*100)+"%";
+}
+function enterCity(){save.hasEntered=true;persist();document.getElementById("welcome").classList.add("hidden");document.getElementById("city").classList.remove("hidden");document.getElementById("bottomNav").classList.remove("hidden");}
+function goCity(){document.getElementById("welcome").classList.add("hidden");document.getElementById("academy").classList.add("hidden");document.getElementById("city").classList.remove("hidden");document.getElementById("bottomNav").classList.remove("hidden");updateStats();}
+function openAcademy(){document.getElementById("welcome").classList.add("hidden");document.getElementById("city").classList.add("hidden");document.getElementById("academy").classList.remove("hidden");document.getElementById("bottomNav").classList.remove("hidden");document.querySelectorAll(".footer-nav button").forEach(b=>b.classList.remove("active"));document.querySelectorAll(".footer-nav button")[1].classList.add("active");renderLetters();updateStats();}
+function showComing(name){toast(name+" 正在制作中，学院今天已经可以开始学习啦！");}
+function toast(msg){let el=document.getElementById("toast");el.textContent=msg;el.classList.remove("hidden");clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.add("hidden"),2300);}
+function renderLetters(){
+ let grid=document.getElementById("letterGrid");grid.innerHTML="";
+ vowels.forEach((v,i)=>{let learned=save.learned.includes(v.ch);let b=document.createElement("button");b.className="letter-card"+(learned?" learned":"");b.innerHTML=`<span class="glyph">${v.ch}</span><small>${v.roman}</small><span class="tick">${learned?"✓ 已认识":"点我学习"}</span>`;b.onclick=()=>selectLetter(i);grid.appendChild(b);});
+ if(save.learned.length===6){document.getElementById("lessonComplete").classList.remove("hidden");}
+}
+function selectLetter(i){
+ selectedIndex=i;let v=vowels[i];document.getElementById("lessonDetail").classList.remove("hidden");document.getElementById("quizPanel").classList.add("hidden");
+ document.getElementById("detailGlyph").textContent=v.ch;document.getElementById("detailName").textContent=v.ch+" · "+v.roman;document.getElementById("detailDesc").textContent=v.hint+"。"+v.detail;
+ document.getElementById("boardLetters").textContent=v.ch+"  ✦  "+v.roman;
+ document.getElementById("teacherLine").textContent="这张字母卡属于你啦！先听一听，再试着记住它的形状和声音。";
+}
+function speakCurrent(){
+ let v=vowels[selectedIndex];
+ if(!("speechSynthesis" in window)){toast("当前浏览器暂不支持语音朗读，可以先看字母和中文提示。");return;}
+ let utter=new SpeechSynthesisUtterance(v.ch);utter.lang="ko-KR";utter.rate=.78;
+ let voices=speechSynthesis.getVoices();let ko=voices.find(x=>x.lang&&x.lang.toLowerCase().startsWith("ko"));if(ko)utter.voice=ko;
+ speechSynthesis.cancel();speechSynthesis.speak(utter);
+}
+function startQuiz(){
+ document.getElementById("quizPanel").classList.remove("hidden");document.getElementById("quizFeedback").classList.add("hidden");document.getElementById("nextQuiz").classList.add("hidden");answered=false;
+ let choices=[selectedIndex];while(choices.length<3){let n=Math.floor(Math.random()*6);if(!choices.includes(n))choices.push(n);}choices.sort(()=>Math.random()-.5);
+ currentQuestion={answer:selectedIndex,choices};document.getElementById("quizQuestion").textContent="请选择这个发音对应的字母："+vowels[selectedIndex].roman;document.getElementById("quizCount").textContent="字母小挑战";
+ let box=document.getElementById("quizOptions");box.innerHTML="";
+ choices.forEach(n=>{let b=document.createElement("button");b.className="quiz-option";b.textContent=vowels[n].ch;b.onclick=()=>answerQuiz(n,b);box.appendChild(b);});
+}
+function answerQuiz(n,button){
+ if(answered)return;answered=true;
+ let ok=n===currentQuestion.answer;let fb=document.getElementById("quizFeedback");fb.classList.remove("hidden");fb.innerHTML=ok?"🌟 <b>答对啦！</b> 你认出了 "+vowels[n].ch+"。这张字母卡点亮了！":"再看一眼也没关系。正确答案是 <b>"+vowels[currentQuestion.answer].ch+"</b>（"+vowels[currentQuestion.answer].roman+"）。听一遍再试试。";
+ button.classList.add(ok?"correct":"wrong");
+ if(ok){
+  document.querySelectorAll(".quiz-option").forEach(b=>{if(b.textContent===vowels[n].ch)b.classList.add("correct");});
+  if(!save.learned.includes(vowels[n].ch)){save.learned.push(vowels[n].ch);save.xp+=5;save.coins+=2;markStudy();persist();renderLetters();}
+  document.getElementById("teacherLine").textContent="做得好！每认识一个字母，你就离读懂首尔的招牌更近一点。";
+  document.getElementById("nextQuiz").classList.remove("hidden");document.getElementById("nextQuiz").textContent=save.learned.length===6?"完成第一圈 →":"继续学习 →";
+ }else{
+  document.getElementById("nextQuiz").classList.remove("hidden");document.getElementById("nextQuiz").textContent="再试一次 →";
+ }
+}
+function nextQuestion(){
+ document.getElementById("quizPanel").classList.add("hidden");
+ if(save.learned.length===6){
+  if(!save.lessonRewarded){save.xp+=0;save.coins+=0;save.lessonRewarded=true;persist();}
+  document.getElementById("lessonComplete").classList.remove("hidden");
+  document.getElementById("teacherLine").textContent="六个元音都认识啦！今天的第一颗学习徽章属于你。";
+  toast("元音花园完成！你真棒！");
+ }else{
+  let next=vowels.findIndex(v=>!save.learned.includes(v.ch));selectLetter(next);
+ }
+}
+function markStudy(){
+ let today=new Date().toLocaleDateString("en-CA");
+ if(save.lastStudyDate!==today){
+  if(save.lastStudyDate){let prev=new Date(save.lastStudyDate+"T12:00:00");let now=new Date(today+"T12:00:00");let diff=Math.round((now-prev)/86400000);save.streak=diff===1?save.streak+1:1;}else{save.streak=1;}
+  save.lastStudyDate=today;
+ }
+}
+(function init(){
+ if(save.hasEntered){document.getElementById("welcome").classList.add("hidden");document.getElementById("city").classList.remove("hidden");document.getElementById("bottomNav").classList.remove("hidden");}
+ updateStats();renderLetters();
+})();
+</script>
+</body>
+</html>
