@@ -94,8 +94,8 @@ h1{font-size:clamp(28px,7vw,44px);margin:10px 0 4px;letter-spacing:2px;color:#79
       <div class="subtitle">A LITTLE CITY, JUST FOR YOU</div>
       <div class="letter">
         <b>雨菡：</b><br>
-        飞机落地以后，这座城市会显得有点大。你不用第一天就听懂所有话。<br>
-        练习室里有 James。你们都说中文，所以门从那里推开。<br>
+        飞机落地以后，这座城市会显得有点大。嘿嘿，我希望我们以后可以一起去环游世界，你不用第一天就听懂所有话。<br>
+        练习室里有 James，你男神！！！你们都说中文，所以门从那里推开。<br>
         想认字母，去学院找 Han。咖啡馆里的 Haru 句子很短，中文写在下面。<br>
         这不是真正的首尔全貌。它很小，只够你先把第一句说出口。<br>
         欢迎来到 MY LITTLE SEOUL。
@@ -120,7 +120,7 @@ h1{font-size:clamp(28px,7vw,44px);margin:10px 0 4px;letter-spacing:2px;color:#79
     </div>
     <div class="row"><h3 class="section-title" style="font-size:19px">今天去哪里？</h3><span class="note">选择一个地点</span></div>
     <div class="city-grid">
-      <button class="place pink" onclick="showComing('练习室 · James')"><span class="emoji">🎧</span><strong>练习室</strong><small>James 在里面等你</small></button>
+      <button class="place pink" onclick="openPractice()"><span class="emoji">🎧</span><strong>练习室</strong><small>James 在里面等你</small></button>
       <button class="place blue" onclick="openAcademy()"><span class="emoji">🏫</span><strong>学院</strong><small>和 Han 老师学韩文</small></button>
       <button class="place yellow" onclick="showComing('咖啡馆 · Haru')"><span class="emoji">☕</span><strong>咖啡馆</strong><small>和 Haru 练习点单</small></button>
       <button class="place mint" onclick="showComing('我的房间')"><span class="emoji">🪴</span><strong>我的房间</strong><small>把小空间装饰起来</small></button>
@@ -133,14 +133,50 @@ h1{font-size:clamp(28px,7vw,44px);margin:10px 0 4px;letter-spacing:2px;color:#79
     <p class="note">V1 开发进行中：今天先开放学院的第一间教室。</p>
   </main>
 
-  <main id="academy" class="wrap hidden">
+  <main id="practice" class="wrap hidden">
+  <div class="topbar">
+    <button class="back" onclick="goCity()">← 城市</button>
+    <div class="brand">🎧 JAMES' PRACTICE ROOM</div>
+  </div>
+
+  <h2 class="section-title">欢迎来到练习室！</h2>
+  <p class="hint">今天也一起学习一点韩语吧。</p>
+
+  <div class="panel" style="background:#fff0f5;text-align:center;padding:20px">
+    <img
+      src="356C87E6-F747-415A-9CEE-A6461D36608B.png"
+      alt="James"
+      style="width:100%;max-width:300px;height:350px;object-fit:contain"
+    >
+    <h2>James</h2>
+    <p>你的韩语练习伙伴 ✨</p>
+    <div class="speech" style="margin:auto">
+      <b>James：</b>
+      <p>안녕! 今天想和我一起学习韩语吗？</p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>🌟 Today's Korean</h3>
+    <div style="text-align:center;padding:15px">
+      <div style="font-size:38px;font-weight:900">안녕하세요</div>
+      <p>Annyeonghaseyo</p>
+      <p>你好！</p>
+      <button class="secondary" onclick="speakGreeting()">🔊 听发音</button>
+    </div>
+  </div>
+
+  <button class="primary" onclick="completePractice()">
+    完成今天的练习 +5 XP
+  </button>
+</main>
     <div class="topbar">
       <button class="back" onclick="goCity()">← 城市</button>
       <div class="brand">🏫 LITTLE SEOUL ACADEMY</div>
       <div class="pill">⭐ <span id="academyCoins">0</span></div>
     </div>
-    <h2 class="section-title">欢迎来到字母教室！</h2>
-    <p class="hint">今天从最基础的韩文字母开始。慢慢来，Han 老师会陪你练习。</p>
+    <h2 class="section-title">欢迎来到字母教室，菡宝！</h2>
+    <p class="hint">今天从最基础的韩文字母开始。慢慢来，Han 老师会陪你练习，我也在哦。</p>
     <div class="academy-scene">
       <div class="cloud c1"></div><div class="cloud c2"></div>
       <div class="blackboard"><small>오늘의 한글 · 今日韩文</small><strong id="boardLetters">ㅏ ㅓ ㅗ</strong></div>
@@ -226,8 +262,55 @@ function updateStats(){
  document.getElementById("lessonBar").style.width=(save.learned.length/6*100)+"%";
 }
 function enterCity(){save.hasEntered=true;persist();document.getElementById("welcome").classList.add("hidden");document.getElementById("city").classList.remove("hidden");document.getElementById("bottomNav").classList.remove("hidden");}
-function goCity(){document.getElementById("welcome").classList.add("hidden");document.getElementById("academy").classList.add("hidden");document.getElementById("city").classList.remove("hidden");document.getElementById("bottomNav").classList.remove("hidden");updateStats();}
-function openAcademy(){document.getElementById("welcome").classList.add("hidden");document.getElementById("city").classList.add("hidden");document.getElementById("academy").classList.remove("hidden");document.getElementById("bottomNav").classList.remove("hidden");document.querySelectorAll(".footer-nav button").forEach(b=>b.classList.remove("active"));document.querySelectorAll(".footer-nav button")[1].classList.add("active");renderLetters();updateStats();}
+
+function goCity(){
+ document.getElementById("welcome").classList.add("hidden");
+ document.getElementById("academy").classList.add("hidden");
+ document.getElementById("practice").classList.add("hidden");
+ document.getElementById("city").classList.remove("hidden");
+ document.getElementById("bottomNav").classList.remove("hidden");
+ updateStats();
+}
+
+
+function openPractice(){
+ document.getElementById("welcome").classList.add("hidden");
+ document.getElementById("city").classList.add("hidden");
+ document.getElementById("academy").classList.add("hidden");
+ document.getElementById("practice").classList.remove("hidden");
+ document.getElementById("bottomNav").classList.remove("hidden");
+}
+
+function speakGreeting(){
+ if(!("speechSynthesis" in window)){
+  toast("当前浏览器暂不支持语音朗读。");
+  return;
+ }
+ let utter=new SpeechSynthesisUtterance("안녕하세요");
+ utter.lang="ko-KR";
+ utter.rate=0.8;
+ speechSynthesis.cancel();
+ speechSynthesis.speak(utter);
+}
+
+function completePractice(){
+ let today=new Date().toLocaleDateString("en-CA");
+
+ if(save.practiceLastDate===today){
+  toast("今天已经完成练习啦！明天再来领取奖励吧。");
+  return;
+ }
+
+ save.practiceLastDate=today;
+ save.xp+=5;
+ save.coins+=2;
+ markStudy();
+ persist();
+
+ toast("James：做得好！获得 +5 XP 和 +2 金币！");
+}
+
+ function openAcademy(){document.getElementById("welcome").classList.add("hidden");document.getElementById("city").classList.add("hidden");document.getElementById("academy").classList.remove("hidden");document.getElementById("bottomNav").classList.remove("hidden");document.querySelectorAll(".footer-nav button").forEach(b=>b.classList.remove("active"));document.querySelectorAll(".footer-nav button")[1].classList.add("active");renderLetters();updateStats();}
 function showComing(name){toast(name+" 正在制作中，学院今天已经可以开始学习啦！");}
 function toast(msg){let el=document.getElementById("toast");el.textContent=msg;el.classList.remove("hidden");clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.add("hidden"),2300);}
 function renderLetters(){
