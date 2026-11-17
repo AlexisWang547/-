@@ -83,7 +83,7 @@ h1{font-size:clamp(28px,7vw,44px);margin:10px 0 4px;letter-spacing:2px;color:#79
 .note{font-size:12px;color:#9a8a9d;line-height:1.6}
 .toast{position:fixed;left:50%;bottom:85px;transform:translateX(-50%);background:#594e68;color:white;padding:10px 16px;border-radius:99px;font-size:13px;z-index:50;box-shadow:var(--shadow)}
 @media(min-width:700px){.city-grid{grid-template-columns:repeat(4,1fr)}.place{min-height:175px}.wrap{padding-top:25px}.academy-scene{padding:25px}.letter-grid{grid-template-columns:repeat(6,1fr)}}
-</style>
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:9px;margin-top:14px}.sent{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-bottom:1px dashed var(--line)}</style>
 </head>
 <body>
 <div id="app">
@@ -94,8 +94,8 @@ h1{font-size:clamp(28px,7vw,44px);margin:10px 0 4px;letter-spacing:2px;color:#79
       <div class="subtitle">A LITTLE CITY, JUST FOR YOU</div>
       <div class="letter">
         <b>雨菡：</b><br>
-        飞机落地以后，这座城市会显得有点大。嘿嘿，我希望我们以后可以一起去环游世界，你不用第一天就听懂所有话。<br>
-        练习室里有 James，你男神！！！你们都说中文，所以门从那里推开。<br>
+        飞机落地以后，这座城市会显得有点大。你不用第一天就听懂所有话。<br>
+        练习室里有 James。你们都说中文，所以门从那里推开。<br>
         想认字母，去学院找 Han。咖啡馆里的 Haru 句子很短，中文写在下面。<br>
         这不是真正的首尔全貌。它很小，只够你先把第一句说出口。<br>
         欢迎来到 MY LITTLE SEOUL。
@@ -120,63 +120,27 @@ h1{font-size:clamp(28px,7vw,44px);margin:10px 0 4px;letter-spacing:2px;color:#79
     </div>
     <div class="row"><h3 class="section-title" style="font-size:19px">今天去哪里？</h3><span class="note">选择一个地点</span></div>
     <div class="city-grid">
-      <button class="place pink" onclick="openPractice()"><span class="emoji">🎧</span><strong>练习室</strong><small>James 在里面等你</small></button>
+      <button class="place pink" onclick="openScene('room')"><span class="emoji">🎧</span><strong>练习室</strong><small>James 在里面等你</small></button>
       <button class="place blue" onclick="openAcademy()"><span class="emoji">🏫</span><strong>学院</strong><small>和 Han 老师学韩文</small></button>
-      <button class="place yellow" onclick="showComing('咖啡馆 · Haru')"><span class="emoji">☕</span><strong>咖啡馆</strong><small>和 Haru 练习点单</small></button>
-      <button class="place mint" onclick="showComing('我的房间')"><span class="emoji">🪴</span><strong>我的房间</strong><small>把小空间装饰起来</small></button>
+      <button class="place yellow" onclick="openScene('cafe')"><span class="emoji">☕</span><strong>咖啡馆</strong><small>和 Haru 练习点单</small></button>
+      <button class="place mint" onclick="openRoom()"><span class="emoji">🪴</span><strong>我的房间</strong><small>把小空间装饰起来</small></button>
     </div>
     <div class="panel">
       <b>📮 今天的纸条</b>
       <p style="margin-bottom:0;line-height:1.7;font-size:14px">“不用一下子学会全部。今天认识一个字母，也算向这座城市走近了一步。”</p>
       <small class="note">— 来自学院的一张小纸条</small>
     </div>
-    <p class="note">V1 开发进行中：今天先开放学院的第一间教室。</p>
+    <p class="note">完整版：练习室、学院、咖啡馆、我的房间、句子本都已开放。</p>
   </main>
 
-  <main id="practice" class="wrap hidden">
-  <div class="topbar">
-    <button class="back" onclick="goCity()">← 城市</button>
-    <div class="brand">🎧 JAMES' PRACTICE ROOM</div>
-  </div>
-
-  <h2 class="section-title">欢迎来到练习室！</h2>
-  <p class="hint">今天也一起学习一点韩语吧。</p>
-
-  <div class="panel" style="background:#fff0f5;text-align:center;padding:20px">
-    <img
-      src="356C87E6-F747-415A-9CEE-A6461D36608B.png"
-      alt="James"
-      style="width:100%;max-width:300px;height:350px;object-fit:contain"
-    >
-    <h2>James</h2>
-    <p>你的韩语练习伙伴 ✨</p>
-    <div class="speech" style="margin:auto">
-      <b>James：</b>
-      <p>안녕! 今天想和我一起学习韩语吗？</p>
-    </div>
-  </div>
-
-  <div class="panel">
-    <h3>🌟 Today's Korean</h3>
-    <div style="text-align:center;padding:15px">
-      <div style="font-size:38px;font-weight:900">안녕하세요</div>
-      <p>Annyeonghaseyo</p>
-      <p>你好！</p>
-      <button class="secondary" onclick="speakGreeting()">🔊 听发音</button>
-    </div>
-  </div>
-
-  <button class="primary" onclick="completePractice()">
-    完成今天的练习 +5 XP
-  </button>
-</main>
+  <main id="academy" class="wrap hidden">
     <div class="topbar">
       <button class="back" onclick="goCity()">← 城市</button>
       <div class="brand">🏫 LITTLE SEOUL ACADEMY</div>
       <div class="pill">⭐ <span id="academyCoins">0</span></div>
     </div>
-    <h2 class="section-title">欢迎来到字母教室，菡宝！</h2>
-    <p class="hint">今天从最基础的韩文字母开始。慢慢来，Han 老师会陪你练习，我也在哦。</p>
+    <h2 class="section-title">欢迎来到字母教室！</h2>
+    <p class="hint">今天从最基础的韩文字母开始。慢慢来，Han 老师会陪你练习。</p>
     <div class="academy-scene">
       <div class="cloud c1"></div><div class="cloud c2"></div>
       <div class="blackboard"><small>오늘의 한글 · 今日韩文</small><strong id="boardLetters">ㅏ ㅓ ㅗ</strong></div>
@@ -192,8 +156,8 @@ h1{font-size:clamp(28px,7vw,44px);margin:10px 0 4px;letter-spacing:2px;color:#79
     </div>
     <div class="lesson-tabs">
       <button class="tab active">🌼 元音花园</button>
-      <button class="tab" onclick="toast('辅音教室将在下一阶段开放！')">🧩 辅音拼拼乐 · 即将开放</button>
-      <button class="tab" onclick="toast('拼字工坊将在下一阶段开放！')">🧸 拼字工坊 · 即将开放</button>
+      <button class="tab" onclick="openScene('cons')">🧩 辅音拼拼乐</button>
+      <button class="tab" onclick="openScene('word')">🧸 拼字工坊</button><button class="tab" onclick="openMatch()">🃏 记忆配对</button>
     </div>
     <div class="letter-grid" id="letterGrid"></div>
     <div id="lessonDetail" class="lesson-detail hidden">
@@ -222,13 +186,41 @@ h1{font-size:clamp(28px,7vw,44px);margin:10px 0 4px;letter-spacing:2px;color:#79
       <button class="primary" style="margin-top:14px" onclick="goCity()">回到小首尔</button>
     </div>
   </main>
+
+<main id="scene" class="wrap hidden">
+  <div class="topbar"><button class="back" onclick="window[sc.back]()">← 返回</button><div class="brand" id="scT"></div></div>
+  <div class="panel"><div class="row" style="justify-content:flex-start"><span style="font-size:52px" id="scEm"></span><div class="speech" id="scLine" style="max-width:none"></div></div></div>
+  <div class="letter-grid" id="scCards"></div>
+  <div class="panel" id="scQ"></div>
+</main>
+<main id="myroom" class="wrap hidden">
+  <div class="topbar"><button class="back" onclick="goCity()">← 城市</button><div class="brand">🪴 我的房间</div><div class="pill">⭐ <span id="roomCoins">0</span></div></div>
+  <p class="hint">用学习赚来的金币，把小房间慢慢装起来。</p>
+  <div class="panel" style="font-size:38px;text-align:center;line-height:1.6" id="roomShelf"></div>
+  <div class="letter-grid" id="shopGrid"></div>
+</main>
+<main id="book" class="wrap hidden">
+  <h2 class="section-title">📖 句子本</h2><p class="hint">在练习室和咖啡馆答对的句子，会自动收进这里。</p>
+  <div class="panel" id="bookList"></div>
+</main>
+<main id="me" class="wrap hidden">
+  <h2 class="section-title">🌷 我的</h2>
+  <div class="panel" id="meBox" style="line-height:1.9"></div>
+  <button class="secondary" onclick="resetAll()">清空所有进度</button>
+</main>
+<main id="match" class="wrap hidden">
+  <div class="topbar"><button class="back" onclick="openAcademy()">← 学院</button><div class="brand">🃏 记忆配对</div></div>
+  <p class="hint">翻开两张牌：韩文音节 + 它的读音配成一对。越少步数越厉害！</p>
+  <div class="panel" id="mInfo" style="text-align:center"></div>
+  <div class="letter-grid" id="mGrid"></div>
+</main>
 </div>
 
 <nav id="bottomNav" class="footer-nav hidden">
   <button class="active" onclick="goCity()">🏙️ 城市</button>
   <button onclick="openAcademy()">🏫 学院</button>
-  <button onclick="showComing('句子本')">📖 句子本</button>
-  <button onclick="showComing('我的')">🌷 我的</button>
+  <button onclick="openBook()">📖 句子本</button>
+  <button onclick="openMe()">🌷 我的</button>
 </nav>
 <div id="toast" class="toast hidden"></div>
 
@@ -262,55 +254,8 @@ function updateStats(){
  document.getElementById("lessonBar").style.width=(save.learned.length/6*100)+"%";
 }
 function enterCity(){save.hasEntered=true;persist();document.getElementById("welcome").classList.add("hidden");document.getElementById("city").classList.remove("hidden");document.getElementById("bottomNav").classList.remove("hidden");}
-
-function goCity(){
- document.getElementById("welcome").classList.add("hidden");
- document.getElementById("academy").classList.add("hidden");
- document.getElementById("practice").classList.add("hidden");
- document.getElementById("city").classList.remove("hidden");
- document.getElementById("bottomNav").classList.remove("hidden");
- updateStats();
-}
-
-
-function openPractice(){
- document.getElementById("welcome").classList.add("hidden");
- document.getElementById("city").classList.add("hidden");
- document.getElementById("academy").classList.add("hidden");
- document.getElementById("practice").classList.remove("hidden");
- document.getElementById("bottomNav").classList.remove("hidden");
-}
-
-function speakGreeting(){
- if(!("speechSynthesis" in window)){
-  toast("当前浏览器暂不支持语音朗读。");
-  return;
- }
- let utter=new SpeechSynthesisUtterance("안녕하세요");
- utter.lang="ko-KR";
- utter.rate=0.8;
- speechSynthesis.cancel();
- speechSynthesis.speak(utter);
-}
-
-function completePractice(){
- let today=new Date().toLocaleDateString("en-CA");
-
- if(save.practiceLastDate===today){
-  toast("今天已经完成练习啦！明天再来领取奖励吧。");
-  return;
- }
-
- save.practiceLastDate=today;
- save.xp+=5;
- save.coins+=2;
- markStudy();
- persist();
-
- toast("James：做得好！获得 +5 XP 和 +2 金币！");
-}
-
- function openAcademy(){document.getElementById("welcome").classList.add("hidden");document.getElementById("city").classList.add("hidden");document.getElementById("academy").classList.remove("hidden");document.getElementById("bottomNav").classList.remove("hidden");document.querySelectorAll(".footer-nav button").forEach(b=>b.classList.remove("active"));document.querySelectorAll(".footer-nav button")[1].classList.add("active");renderLetters();updateStats();}
+function goCity(){document.getElementById("welcome").classList.add("hidden");document.getElementById("academy").classList.add("hidden");document.getElementById("city").classList.remove("hidden");document.getElementById("bottomNav").classList.remove("hidden");updateStats();}
+function openAcademy(){document.getElementById("welcome").classList.add("hidden");document.getElementById("city").classList.add("hidden");document.getElementById("academy").classList.remove("hidden");document.getElementById("bottomNav").classList.remove("hidden");document.querySelectorAll(".footer-nav button").forEach(b=>b.classList.remove("active"));document.querySelectorAll(".footer-nav button")[1].classList.add("active");renderLetters();updateStats();}
 function showComing(name){toast(name+" 正在制作中，学院今天已经可以开始学习啦！");}
 function toast(msg){let el=document.getElementById("toast");el.textContent=msg;el.classList.remove("hidden");clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.add("hidden"),2300);}
 function renderLetters(){
@@ -354,7 +299,7 @@ function answerQuiz(n,button){
 function nextQuestion(){
  document.getElementById("quizPanel").classList.add("hidden");
  if(save.learned.length===6){
-  if(!save.lessonRewarded){save.xp+=0;save.coins+=0;save.lessonRewarded=true;persist();}
+  if(!save.lessonRewarded){save.xp+=30;save.coins+=12;save.lessonRewarded=true;persist();}
   document.getElementById("lessonComplete").classList.remove("hidden");
   document.getElementById("teacherLine").textContent="六个元音都认识啦！今天的第一颗学习徽章属于你。";
   toast("元音花园完成！你真棒！");
@@ -373,6 +318,127 @@ function markStudy(){
  if(save.hasEntered){document.getElementById("welcome").classList.add("hidden");document.getElementById("city").classList.remove("hidden");document.getElementById("bottomNav").classList.remove("hidden");}
  updateStats();renderLetters();
 })();
+</script>
+
+<script>
+const $=id=>document.getElementById(id);
+const SC={
+room:{t:"🎧 练习室 · James",em:"🧑‍🎤",img:"356C87E6-F747-415A-9CEE-A6461D36608B.png",back:"goCity",line:"안녕! 今天想和我一起学习韩语吗？先点点今天的韩语，再来练几句常用的。",cards:[["안녕하세요","Annyeonghaseyo · 你好"]],qs:[
+ ["第一次见面，想说“你好”：","안녕하세요","감사합니다","죄송합니다",["안녕하세요","你好"]],
+ ["别人帮了你，想说“谢谢”：","감사합니다","안녕하세요","죄송합니다",["감사합니다","谢谢"]],
+ ["不小心撞到人，想说“对不起”：","죄송합니다","감사합니다","안녕하세요",["죄송합니다","对不起"]],
+ ["想对新同伴说“请多关照”：","잘 부탁드립니다","안녕히 가세요","감사합니다",["잘 부탁드립니다","请多关照"]],
+ ["想回答“是的”：","네","아니요","죄송합니다",["네","是的"]]]},
+cafe:{t:"☕ 咖啡馆 · Haru",em:"🧑‍🍳",back:"goCity",line:"어서 오세요！（欢迎光临）想喝点什么？",qs:[
+ ["想点一杯美式咖啡：","아메리카노 주세요","얼마예요?","여기 있어요",["아메리카노 주세요","请给我一杯美式咖啡"]],
+ ["想问“多少钱？”：","얼마예요?","포장해 주세요","감사합니다",["얼마예요?","多少钱？"]],
+ ["想要外带（打包）：","포장해 주세요","얼마예요?","안녕하세요",["포장해 주세요","请帮我打包"]],
+ ["Haru 把咖啡递给你，说“여기 있어요”，意思是：","给您（请拿好）","多少钱？","对不起",["여기 있어요","给您（请拿好）"]]]},
+cons:{t:"🧩 辅音拼拼乐",em:"🐻‍❄️",back:"openAcademy",big:1,line:"先点点卡片听声音，再来挑战。ㅇ 在开头时不发音哦！",
+ cards:[["ㄱ","g / k"],["ㄴ","n"],["ㄷ","d / t"],["ㄹ","r / l"],["ㅁ","m"],["ㅂ","b / p"],["ㅅ","s"],["ㅇ","开头不发音"]],qs:[
+ ["哪个字母读 m？","ㅁ","ㄴ","ㅅ"],["哪个字母读 n？","ㄴ","ㅁ","ㅂ"],["哪个字母读 s？","ㅅ","ㅇ","ㄷ"],["哪个字母读 g / k？","ㄱ","ㄹ","ㅂ"],["哪个字母读 b / p？","ㅂ","ㄷ","ㅁ"]]},
+word:{t:"🧸 拼字工坊",em:"🐻‍❄️",back:"openAcademy",big:1,line:"辅音 + 元音，就能拼出一个音节！点卡片听听看。",
+ cards:[["가","ga"],["나","na"],["다","da"],["마","ma"],["사","sa"],["아","a"],["고","go"],["시","si"],["무","mu"]],qs:[
+ ["ㄴ + ㅏ = ?","나","가","마"],["ㅁ + ㅏ = ?","마","나","사"],["ㄱ + ㅗ = ?","고","가","구"],["ㅅ + ㅣ = ?","시","사","소"],["ㅁ + ㅜ = ?","무","마","모"]]}
+};
+let sc=null,qi=0,lock=false;
+function say(t){if(!("speechSynthesis" in window)){toast("当前浏览器暂不支持语音朗读");return;}const u=new SpeechSynthesisUtterance(t);u.lang="ko-KR";u.rate=.8;const v=speechSynthesis.getVoices().find(x=>x.lang&&x.lang.toLowerCase().startsWith("ko"));if(v)u.voice=v;speechSynthesis.cancel();speechSynthesis.speak(u);}
+function show(id,n){document.querySelectorAll('#app>section,#app>main').forEach(e=>e.classList.add('hidden'));$(id).classList.remove('hidden');$('bottomNav').classList.toggle('hidden',id==='welcome');document.querySelectorAll('.footer-nav button').forEach((b,i)=>b.classList.toggle('active',i===n));window.scrollTo(0,0);}
+function goCity(){show('city',0);updateStats();}
+function openAcademy(){show('academy',1);renderLetters();updateStats();}
+function openBook(){show('book',2);renderBook();}
+function openMe(){show('me',3);updateStats();renderMe();}
+function openRoom(){show('myroom',0);renderShop();}
+function openScene(k){sc=SC[k];sc.k=k;qi=0;lock=false;show('scene',0);$('scT').textContent=sc.t;$('scEm').innerHTML=sc.img?`<img src="${sc.img}" alt="James" style="width:110px;border-radius:16px;display:block" onerror="this.outerHTML=sc.em">`:sc.em;$('scLine').textContent=sc.line;
+ const g=$('scCards');g.innerHTML="";g.classList.toggle('hidden',!sc.cards);
+ (sc.cards||[]).forEach(c=>{const b=document.createElement('button');b.className='letter-card';b.innerHTML=`<span class="glyph">${c[0]}</span><small>${c[1]}</small>`;b.onclick=()=>say(c[0]);if(c[0].length>2)b.querySelector('.glyph').style.fontSize='22px';g.appendChild(b);});
+ renderQ();}
+function renderQ(){
+ if(qi>=sc.qs.length){finishScene();return;}
+ const q=sc.qs[qi],opts=[q[1],q[2],q[3]].sort(()=>Math.random()-.5);
+ $('scQ').innerHTML=`<div class="row"><b>⭐ 小挑战</b><span class="note">${qi+1} / ${sc.qs.length}</span></div><p style="text-align:center;font-weight:800;line-height:1.6">${q[0]}</p><div class="opts" id="scO"></div><div id="scF" class="feedback hidden"></div>`;
+ opts.forEach(o=>{const b=document.createElement('button');b.className='quiz-option';b.style.fontSize=(sc.big?28:16)+'px';b.textContent=o;b.onclick=()=>ans(o,b,q);$('scO').appendChild(b);});}
+function ans(o,b,q){
+ if(lock)return;const f=$('scF');f.classList.remove('hidden');
+ if(o!==q[1]){b.classList.add('wrong');f.textContent="没关系，再看一眼，换一个选项试试。";return;}
+ lock=true;b.classList.add('correct');save.qd=save.qd||[];save.sentences=save.sentences||[];let gain="";const id=sc.k+qi;
+ if(!save.qd.includes(id)){save.qd.push(id);save.xp+=3;save.coins+=1;gain=" +3 XP +1 金币";markStudy();}
+ if(q[4]){say(q[4][0]);if(!save.sentences.some(s=>s[0]===q[4][0])){save.sentences.push(q[4]);gain+="　📖 已加入句子本";}}
+ persist();
+ f.innerHTML=`🌟 <b>答对啦！</b>${gain}<br><button class="primary" style="margin-top:10px" onclick="qi++;lock=false;renderQ()">继续 →</button>`;}
+function finishScene(){
+ save.sd=save.sd||[];let r="";
+ if(!save.sd.includes(sc.k)){save.sd.push(sc.k);save.xp+=20;save.coins+=8;persist();r='<div class="reward">首次完成：+20 XP　+8 金币</div>';}
+ $('scQ').innerHTML=`<div style="text-align:center"><div style="font-size:48px">🎉</div><h3>这一课完成啦！</h3>${r}<button class="primary" style="margin:14px 6px 0 0" onclick="openScene(sc.k)">再练一遍</button><button class="secondary" onclick="window[sc.back]()">返回</button></div>`;}
+function renderBook(){const l=save.sentences||[];
+ $('bookList').innerHTML=l.length?l.map((s,i)=>`<div class="sent"><div><b>${s[0]}</b><br><small class="note">${s[1]}</small></div><button class="secondary" onclick="say(save.sentences[${i}][0])">🔊</button></div>`).join(""):'<p class="note">还没有句子。去练习室或咖啡馆答对题目，句子就会收进来。</p>';}
+function renderMe(){
+ $('meBox').innerHTML=`<div>🌱 ${$('levelText').textContent} · ${$('levelName').textContent}</div><div>⭐ ${save.xp} XP　🪙 ${save.coins} 金币　🔥 连续 ${save.streak} 天</div><div>🔤 元音 ${save.learned.length}/6　📖 句子 ${(save.sentences||[]).length} 句　🪴 家具 ${(save.owned||[]).length} 件</div>`;}
+function resetAll(){if(confirm("确定清空所有学习进度吗？")){localStorage.removeItem("mls-save");location.reload();}}
+const SHOP=[["🪴","绿植",5],["🛋️","小沙发",12],["🖼️","海报",8],["🎧","耳机",10],["🧸","玩偶",6],["🌙","月亮灯",9]];
+function renderShop(){
+ save.owned=save.owned||[];$('roomCoins').textContent=save.coins;
+ $('roomShelf').textContent=save.owned.length?save.owned.map(i=>SHOP[i][0]).join(" "):"空空的，用金币买点东西吧";
+ const g=$('shopGrid');g.innerHTML="";
+ SHOP.forEach((s,i)=>{const own=save.owned.includes(i),b=document.createElement('button');b.className='letter-card'+(own?' learned':'');
+  b.innerHTML=`<span class="glyph">${s[0]}</span><small>${s[1]}</small><span class="tick">${own?'✓ 已拥有':'⭐ '+s[2]}</span>`;
+  b.onclick=()=>{if(own)return;if(save.coins<s[2]){toast("金币不够，再去学一点吧！");return;}save.coins-=s[2];save.owned.push(i);persist();renderShop();};g.appendChild(b);});}
+</script>
+
+<script>
+SC.room.qs.push(["想说“再见”（对离开的人）：","안녕히 가세요","잘 부탁드립니다","네",["안녕히 가세요","再见（请慢走）"]],["想说“我是中国人”：","저는 중국 사람이에요","감사합니다","얼마예요?",["저는 중국 사람이에요","我是中国人"]],["想说“请再说一遍”：","다시 말해 주세요","안녕하세요","죄송합니다",["다시 말해 주세요","请再说一遍"]]);
+SC.cafe.qs.push(["想说“请给我一杯拿铁”：","라떼 주세요","아메리카노 주세요","얼마예요?",["라떼 주세요","请给我一杯拿铁"]],["想说“在这里喝”：","여기서 마실게요","포장해 주세요","감사합니다",["여기서 마실게요","在这里喝"]],["想夸咖啡“很好喝”：","맛있어요","얼마예요?","죄송합니다",["맛있어요","很好吃 / 很好喝"]]);
+SC.cons.qs.push(["哪个字母读 d / t？","ㄷ","ㅂ","ㅅ"],["哪个字母读 r / l？","ㄹ","ㄴ","ㅁ"],["开头时不发音的是哪个？","ㅇ","ㄱ","ㅅ"]);
+SC.word.qs.push(["ㄷ + ㅏ = ?","다","나","가"],["ㅅ + ㅏ = ?","사","시","마"],["ㅇ + ㅏ = ?","아","가","오"]);
+let combo=0,miss=0;
+const _os=openScene;
+openScene=function(k){SC[k].run=[...SC[k].qs].sort(()=>Math.random()-.5).slice(0,5);combo=0;miss=0;_os(k);};
+const WHO={room:"James",cafe:"Haru",cons:"Han 老师",word:"Han 老师"};
+const OK=["잘했어요！（做得好！）","대박！（太厉害了！）","최고예요！（最棒！）"],NO=["괜찮아요！（没关系，再试试）","천천히요～（慢慢来）"];
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+function renderQ(){
+ const Q=sc.run;if(qi>=Q.length){finishScene();return;}
+ const q=Q[qi],lis=sc.k==='word'&&Math.random()<.5,opts=[q[1],q[2],q[3]].sort(()=>Math.random()-.5);
+ $('scQ').innerHTML=`<div class="row"><b>⭐ 小挑战</b><span class="note">${qi+1} / ${Q.length}${combo>1?' · 🔥 连击 x'+combo:''}</span></div><p style="text-align:center;font-weight:800;line-height:1.6">${lis?'🔊 听一听，是哪个字？':q[0]}</p>${lis?'<div style="text-align:center"><button class="secondary" onclick="say(sc.run[qi][1])">🔊 再听一次</button></div>':''}<div class="opts" id="scO"></div><div id="scF" class="feedback hidden"></div>`;
+ if(lis)say(q[1]);
+ opts.forEach(o=>{const b=document.createElement('button');b.className='quiz-option';b.style.fontSize=(sc.big?28:16)+'px';b.textContent=o;b.onclick=()=>ans(o,b,q);$('scO').appendChild(b);});}
+function ans(o,b,q){
+ if(lock)return;const f=$('scF');f.classList.remove('hidden');
+ if(o!==q[1]){b.classList.add('wrong');miss++;combo=0;$('scLine').textContent=WHO[sc.k]+"："+pick(NO);f.textContent="再看一眼，换一个选项试试。";return;}
+ lock=true;combo++;b.classList.add('correct');save.qd=save.qd||[];save.sentences=save.sentences||[];let gain="";const id=sc.k+q[1];
+ if(!save.qd.includes(id)){save.qd.push(id);save.xp+=3;save.coins+=1;gain=" +3 XP +1 金币";markStudy();}
+ if(combo>=3){save.coins+=1;gain+=`　🔥连击 x${combo} +1 金币`;}
+ if(q[4]){say(q[4][0]);if(!save.sentences.some(s=>s[0]===q[4][0])){save.sentences.push(q[4]);gain+="　📖 已加入句子本";}}
+ $('scLine').textContent=WHO[sc.k]+"："+pick(OK);persist();
+ f.innerHTML=`🌟 <b>答对啦！</b>${gain}<br><button class="primary" style="margin-top:10px" onclick="qi++;lock=false;renderQ()">继续 →</button>`;}
+function finishScene(){
+ save.sd=save.sd||[];save.stars=save.stars||{};const st=miss===0?3:miss<=2?2:1;let r="";
+ if(!save.sd.includes(sc.k)){save.sd.push(sc.k);save.xp+=20;save.coins+=8;r+='<div class="reward">首次完成：+20 XP　+8 金币</div>';}
+ if(st>(save.stars[sc.k]||0)){if(st===3){save.xp+=10;save.coins+=5;r+='<div class="reward">首次三星：+10 XP　+5 金币</div>';}save.stars[sc.k]=st;}
+ persist();
+ $('scQ').innerHTML=`<div style="text-align:center"><div style="font-size:42px">🎉</div><h3>这一课完成啦！</h3><div style="font-size:30px">${'⭐'.repeat(st)}${'☆'.repeat(3-st)}</div><p class="note">三星 = 全部一次答对　最高纪录：${save.stars[sc.k]} 星</p>${r}<button class="primary" style="margin:14px 6px 0 0" onclick="openScene(sc.k)">再来一轮</button><button class="secondary" onclick="window[sc.back]()">返回</button></div>`;}
+let mt=[],mf=[],mm=0,mdone=0,mlock=false;
+function openMatch(){show('match',1);
+ const ps=[...SC.word.cards].sort(()=>Math.random()-.5).slice(0,6);mt=[];
+ ps.forEach((c,i)=>{mt.push({id:i,t:c[0],k:'a'});mt.push({id:i,t:c[1],k:'b'});});
+ mt.sort(()=>Math.random()-.5);mf=[];mm=0;mdone=0;mlock=false;$('mInfo').textContent='步数 0 · 找到 0 / 6';
+ const g=$('mGrid');g.innerHTML='';
+ mt.forEach((c,i)=>{const b=document.createElement('button');b.className='letter-card';b.style.minHeight='84px';b.style.fontSize='24px';b.textContent='❓';b.onclick=()=>flip(i);c.b=b;g.appendChild(b);});}
+function flip(i){
+ const c=mt[i];if(mlock||c.on||mf.includes(i))return;c.b.textContent=c.t;c.b.classList.add('learned');if(c.k==='a')say(c.t);mf.push(i);
+ if(mf.length<2)return;mm++;const [x,y]=mf.map(j=>mt[j]);
+ if(x.id===y.id){x.on=y.on=1;mf=[];mdone++;if(mdone===6){winMatch();return;}}
+ else{mlock=true;setTimeout(()=>{[x,y].forEach(z=>{z.b.textContent='❓';z.b.classList.remove('learned')});mf=[];mlock=false;},800);}
+ $('mInfo').textContent=`步数 ${mm} · 找到 ${mdone} / 6`;}
+function winMatch(){
+ let t;if(!save.md){save.xp+=10;save.coins+=4;t="首次通关：+10 XP +4 金币";}else{save.coins+=1;t="+1 金币";}
+ save.md=(save.md||0)+1;save.best=Math.min(save.best||99,mm);markStudy();persist();
+ $('mInfo').innerHTML=`🎉 ${mm} 步完成！（最佳 ${save.best} 步）<br>${t}<br><button class="primary" style="margin-top:10px" onclick="openMatch()">再玩一局</button>`;}
+function renderMe(){
+ const s=save,L=(s.sentences||[]).length,dn=x=>(s.sd||[]).includes(x),ck=s.ci===new Date().toDateString();
+ const B=[["🔤","元音学完",s.learned.length>=6],["🎧","练习室通关",dn('room')],["☕","咖啡馆通关",dn('cafe')],["🧩","辅音通关",dn('cons')],["🧸","拼字通关",dn('word')],["🃏","配对高手",(s.md||0)>0],["📖","收集8句",L>=8],["🪴","装饰3件",(s.owned||[]).length>=3],["🌟","拿过三星",Object.values(s.stars||{}).includes(3)]];
+ $('meBox').innerHTML=`<div>🌱 ${$('levelText').textContent} · ${$('levelName').textContent}</div><div>⭐ ${s.xp} XP　🪙 ${s.coins} 金币　🔥 连续 ${s.streak} 天</div><div>🔤 元音 ${s.learned.length}/6　📖 句子 ${L} 句　🪴 家具 ${(s.owned||[]).length} 件</div><button class="primary" style="margin:12px 0" onclick="checkIn()" ${ck?'disabled':''}>${ck?'✅ 今天已签到':'📅 今日签到 +5 XP +3 金币'}</button><div><b>🏅 徽章</b>（${B.filter(b=>b[2]).length}/${B.length}）</div><div class="opts">${B.map(b=>`<div style="text-align:center;opacity:${b[2]?1:.3}"><div style="font-size:30px">${b[0]}</div><small>${b[1]}</small></div>`).join("")}</div>`;}
+function checkIn(){const t=new Date().toDateString();if(save.ci===t)return;save.ci=t;save.xp+=5;save.coins+=3;markStudy();persist();renderMe();toast("签到成功！+5 XP +3 金币");}
 </script>
 </body>
 </html>
