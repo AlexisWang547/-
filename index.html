@@ -91,6 +91,26 @@ h1{font-size:clamp(28px,7vw,44px);margin:10px 0 4px;letter-spacing:2px;color:#79
 .james-dialogue-controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 .james-dialogue-controls button{flex:1;min-width:110px}
 .james-quote{color:#a35e83;font-weight:900}
+
+/* CORTIS OOC integrated story area */
+.cortis-hero{background:linear-gradient(135deg,#f7eaff,#eaf6ff 55%,#fff2e8);border:3px solid #fff;border-radius:24px;padding:17px;box-shadow:var(--shadow);margin:12px 0}
+.cortis-members{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.cortis-member{background:#fff;border:3px solid #fff;border-radius:18px;padding:8px;box-shadow:var(--shadow);text-align:center}
+.cortis-member img{width:100%;height:165px;object-fit:cover;object-position:top center;border-radius:13px;background:#f4edf8}
+.cortis-member b{display:block;margin-top:6px;color:#79638e}
+.cortis-events{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.cortis-event{background:#fff;border:2px solid #eee2f2;border-radius:17px;padding:12px;text-align:left;min-height:105px;box-shadow:0 4px 0 #eee4f3}
+.cortis-event strong{display:block;margin:5px 0;color:#765e8b}
+.cortis-event small{font-size:11px;color:var(--muted);line-height:1.5}
+.cortis-stage{background:linear-gradient(145deg,#fff8fd,#f0f7ff);border:2px solid #fff;border-radius:19px;padding:13px;margin-top:10px}
+.cortis-cast{display:flex;gap:7px;flex-wrap:wrap;margin:8px 0}
+.cortis-chip{background:#fff;border:1px solid #e9dff0;border-radius:99px;padding:6px 10px;font-size:12px;font-weight:800}
+.cortis-choice{display:block;width:100%;text-align:left;background:#fff;border:2px solid #eee2f2;border-radius:14px;padding:11px;margin:8px 0;font-size:13px;line-height:1.55}
+.cortis-choice:active{background:#f9efff}
+.cortis-dialogue{background:#fff;border-radius:15px;padding:12px;margin:9px 0;line-height:1.8;font-size:14px;white-space:pre-wrap}
+.cortis-memory{line-height:1.8;font-size:13px}
+@media(min-width:700px){.cortis-members{grid-template-columns:repeat(5,minmax(0,1fr))}.cortis-member img{height:190px}.cortis-events{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
 </style>
 </head>
 <body>
@@ -132,6 +152,7 @@ h1{font-size:clamp(28px,7vw,44px);margin:10px 0 4px;letter-spacing:2px;color:#79
       <button class="place blue" onclick="openAcademy()"><span class="emoji">🏫</span><strong>学院</strong><small>和 Han 老师学韩文</small></button>
       <button class="place yellow" onclick="openScene('cafe')"><span class="emoji">☕</span><strong>咖啡馆</strong><small>和 Haru 练习点单</small></button>
       <button class="place mint" onclick="openRoom()"><span class="emoji">🪴</span><strong>我的房间</strong><small>把小空间装饰起来</small></button>
+      <button class="place purple" onclick="openCortis()"><span class="emoji">🎬</span><strong>CORTIS OOC</strong><small>首尔日常 · 互动故事</small></button>
     </div>
     <div class="panel">
       <b>📮 今天的纸条</b>
@@ -222,6 +243,45 @@ h1{font-size:clamp(28px,7vw,44px);margin:10px 0 4px;letter-spacing:2px;color:#79
   <div class="panel" id="mInfo" style="text-align:center"></div>
   <div class="letter-grid" id="mGrid"></div>
 </main>
+
+<main id="cortis" class="wrap hidden">
+  <div class="topbar"><button class="back" onclick="goCity()">← 城市</button><div class="brand">🎬 CORTIS OOC STORY</div><div class="pill">📖 <span id="cortisPlayed">0</span></div></div>
+  <div class="cortis-hero">
+    <div style="font-size:30px">🌙🎧✨</div>
+    <h2 class="section-title" style="font-size:22px">首尔的另一种日常</h2>
+    <p class="hint" style="margin:7px 0">James 已经是你的朋友。你会在不同的生活场景里遇见成员们，故事由你的选择推动。</p>
+    <p class="note">本区域是粉丝创作的虚构 OOC 故事，不代表成员真实私生活、言行或性格。</p>
+  </div>
+  <div class="panel">
+    <b>🌟 CORTIS 成员</b>
+    <div class="cortis-members" style="margin-top:10px">
+      <div class="cortis-member"><img src="./james.png.JPG" alt="James"><b>JAMES</b><small class="note">玩家的朋友</small></div>
+      <div class="cortis-member"><img src="./martin.png.JPG" alt="Martin"><b>MARTIN</b><small class="note">特别支线</small></div>
+      <div class="cortis-member"><img src="./juhoon.png.jpg" alt="Juhoon"><b>JUHOON</b><small class="note">故事成员</small></div>
+      <div class="cortis-member"><img src="./seonghyeon.png.jpg" alt="Seonghyeon"><b>SEONGHYEON</b><small class="note">故事成员</small></div>
+      <div class="cortis-member"><img src="./keonho.png.jpg" alt="Keonho"><b>KEONHO</b><small class="note">故事成员</small></div>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="row"><b>🎲 选择一个故事</b><span class="note">12 个剧情章节</span></div>
+    <p class="hint">每段故事都有预先写好的成员对话和多个选择。没有自由输入，也不会出现虚构的实时回复。</p>
+    <div id="cortisEvents" class="cortis-events"></div>
+  </div>
+  <div id="cortisStory" class="panel hidden">
+    <div class="row"><b id="cortisStoryTitle">故事</b><button class="back" onclick="closeCortisStory()">收起</button></div>
+    <div class="cortis-stage">
+      <div id="cortisCast" class="cortis-cast"></div>
+      <div id="cortisNarrative" class="cortis-dialogue"></div>
+      <div id="cortisChoices"></div>
+      <div id="cortisOutcome" class="cortis-dialogue hidden"></div>
+      <button id="cortisReturn" class="primary hidden" onclick="closeCortisStory()">回到故事列表</button>
+    </div>
+  </div>
+  <div class="panel">
+    <b>📔 故事记忆</b>
+    <div id="cortisMemory" class="cortis-memory hint" style="margin-top:8px">还没有共同回忆。选择一个故事开始吧！</div>
+  </div>
+</main>
 </div>
 
 <nav id="bottomNav" class="footer-nav hidden">
@@ -229,6 +289,7 @@ h1{font-size:clamp(28px,7vw,44px);margin:10px 0 4px;letter-spacing:2px;color:#79
   <button onclick="openAcademy()">🏫 学院</button>
   <button onclick="openBook()">📖 句子本</button>
   <button onclick="openMe()">🌷 我的</button>
+  <button onclick="openCortis()">🎬 OOC</button>
 </nav>
 <div id="toast" class="toast hidden"></div>
 
@@ -494,5 +555,96 @@ function say(t){
  speechSynthesis.cancel();setTimeout(()=>speechSynthesis.speak(u),60);}
 function speakCurrent(){say(vowels[selectedIndex].ch);}
 </script>
+
+<script>
+/* CORTIS OOC: fully scripted, choice-based fan fiction. No free-text or simulated live replies. */
+(function(){
+const C_NAMES={james:"James",martin:"Martin",juhoon:"Juhoon",seonghyeon:"Seonghyeon",keonho:"Keonho"};
+const C_STORIES=[
+{id:"01",title:"练习室临时集合",icon:"🎧",cast:["james","martin","juhoon"],intro:"你本来只是来找 James。推开练习室的门时，Martin 和 Juhoon 也在里面。James 看见你，抬手打了个招呼。\\nJames：「来得正好！我们刚好在休息。」\\nMartin：「要不要一起想想接下来做什么？」",choices:[
+["提议大家先休息十分钟","James：「赞成，先补充一点能量。」\\nMartin 把音箱音量调低，Juhoon 拿出桌上的卡牌。你们决定把休息时间变成一个小小的游戏时间。","轻松的休息"],
+["问他们刚才在讨论什么","Juhoon 把刚才的讨论简单解释了一遍。Martin 在纸上画了个小草图，James 让你也加入讨论。你们最后整理出一个新的活动点子。","加入讨论"],
+["拿出手机给大家看一张有趣的首尔照片","Martin 凑近看了看：「这个地方看起来不错。」James 说下次可以把它加入城市探索清单。练习室里多了一项新的出游计划。","首尔探索清单"]]},
+{id:"02",title:"便利店补给任务",icon:"🍙",cast:["james","martin","keonho"],intro:"晚上，大家发现饮料和零食不够了。James 问你要不要一起去便利店。Martin 拿着购物篮，Keonho 正在研究货架上的新品。",choices:[
+["先列一张采购清单","James 负责核对清单，Martin 找到了大家都需要的饮料。Keonho 发现清单里漏了一样小零食，及时提醒了你们。","采购清单"],
+["每个人挑一件最想吃的东西","购物篮很快变得五花八门。Keonho 认真比较了两种口味，Martin 则提议再选一份大家可以分享的点心。","分享零食"],
+["挑战固定预算完成采购","你们开始比较价格和包装。Martin 负责计算，James 核对数量，最后成功在预算内买齐了东西。","预算挑战"]]},
+{id:"03",title:"深夜游戏局",icon:"🎮",cast:["martin","seonghyeon","keonho"],intro:"休息区的桌子上摆好了桌游。Martin 把规则卡放在桌上，Seonghyeon 已经准备好计分，Keonho 则把椅子拉了过来。",choices:[
+["选择团队合作模式","大家开始交换线索。Martin 提醒先统一策略，Seonghyeon 负责记录线索，Keonho 找到了关键提示。你们顺利完成了这一轮。","团队合作"],
+["选择随机挑战模式","抽到的任务让大家都愣了一下。Martin 读完规则后笑了起来，Keonho 主动示范第一轮，气氛很快热闹起来。","随机挑战"],
+["担任记录员和裁判","你负责记录分数和规则。Seonghyeon 发现你的记录很清楚，Martin 还给你做了一张临时的冠军积分表。","游戏记录员"]]},
+{id:"04",title:"汉江边的临时计划",icon:"🌳",cast:["james","juhoon","seonghyeon"],intro:"天气意外地不错。James 在群聊里问大家要不要出门。Juhoon 想去汉江边，Seonghyeon 提议先找一家咖啡馆。",choices:[
+["先去汉江散步","大家带上饮料沿河边慢慢走。James 拍下了城市天际线，Juhoon 找到一处适合休息的长椅。你们把这段散步记进了首尔日记。","汉江散步"],
+["先找咖啡馆坐一会儿","你们找到一家靠窗的小店。Seonghyeon 选了座位，James 把下一站加入共同地图。","咖啡馆停留"],
+["让大家抽签决定路线","抽签结果让路线变成即兴冒险。你们先走到附近的小街，再决定下一站，意外发现了一家有趣的文具店。","即兴路线"]]},
+{id:"05",title:"创意挑战日",icon:"🎨",cast:["martin","james","seonghyeon"],intro:"桌上放着彩纸、贴纸和几支彩笔。今天的任务是一起设计一张首尔主题明信片。Martin 问你：「要不要先决定整体风格？」",choices:[
+["先确定主题和配色","你们选定温柔的夜景主题。Martin 整理草图，James 负责挑选文字位置，Seonghyeon 找到了合适的装饰元素。","夜景明信片"],
+["先自由创作再组合","桌面上出现许多不同的小图案。James 提议把它们拼成完整作品，Martin 负责调整布局。","拼贴作品"],
+["让每个人负责一个部分","大家各自完成一块，最后组合在一起。不同风格意外地很协调，成品被放进了你们的共同收藏。","合作作品"]]},
+{id:"06",title:"没有计划的一天",icon:"🍰",cast:["james","martin","juhoon","seonghyeon","keonho"],intro:"今天没有特别安排。你来到休息区时，五个人正围着桌子，有人在翻杂志，有人在挑音乐。James 看见你：「今天不赶时间，要不要一起待一会儿？」",choices:[
+["轮流分享最近发现的有趣事物","话题从一家新店跳到一部电影，又从城市角落跳到奇怪的小知识。每个人都贡献了一点新发现。","有趣发现"],
+["玩一轮快速问答","问题越来越有趣。大家的答案各不相同，讨论也变得热闹起来。最后你们决定把最有趣的问题保存下来。","快速问答"],
+["什么都不安排，就一起休息","没有任务，也没有时间表。你们只是聊聊天、听听音乐，度过了很放松的一段时间。","安静时光"]]},
+{id:"07",title:"Martin 的灵感便签",icon:"📝",cast:["martin","james"],special:true,intro:"你经过休息区时，看见 Martin 正在一张便签上写写画画。James 告诉你，Martin 正在整理一个创意点子，但还没决定从哪里开始。",choices:[
+["和 Martin 一起整理关键词","你们把零散的想法分成几个主题。Martin 把便签重新排好：「这样清楚多了。」James 说这张纸可以留作之后的灵感备忘。","灵感整理"],
+["先画一个简单的草图","你们没有急着把细节填满，而是先把大致结构画出来。Martin 看着草图补上几个新点子，整个计划逐渐成形。","草图计划"],
+["请 James 帮忙做最后检查","James 从旁边看了一遍，指出一个容易忽略的小细节。Martin 把它补进方案里，三个人一起完成了第一版。","共同检查"]]},
+{id:"08",title:"Martin 的拍摄主题",icon:"📷",cast:["martin","seonghyeon","keonho"],special:true,intro:"今天大家准备做一个轻松的城市主题拍摄练习。Martin 拿出几张参考图，Seonghyeon 和 Keonho 也加入讨论。",choices:[
+["选择复古街角主题","Martin 选了暖色调参考，Seonghyeon 提议加入旧招牌元素。你们把主题定为「首尔旧街的一页」。","复古街角"],
+["选择明亮的彩色主题","Keonho 找到几种明快的配色。Martin 把它们排成色卡，最后决定用彩色小物件表现城市日常。","彩色日常"],
+["选择安静的夜景主题","大家把重点放在灯光和街道氛围。Martin 整理出拍摄顺序，Seonghyeon 补充了几个细节。","安静夜景"]]},
+{id:"09",title:"一场小小的问答赛",icon:"🎤",cast:["james","juhoon","keonho"],intro:"休息时间，James 提议来一场快速问答。Juhoon 负责读题，Keonho 负责计分。题目从首尔地名一路跳到日常生活。",choices:[
+["选择城市主题题目","Juhoon 读出第一题，大家轮流作答。你们聊起各自想去的地方，最后整理出一份城市探索愿望清单。","城市知识"],
+["选择生活常识题目","题目有简单也有意外的难题。Keonho 认真记下分数，James 还补充了一个相关的小知识。","生活问答"],
+["选择即兴脑洞题目","问题变得越来越有趣。你们给每个答案起了小标题，最后把这轮问答命名为「奇妙想法大会」。","脑洞问答"]]},
+{id:"10",title:"咖啡馆的遗失物",icon:"☕",cast:["james","seonghyeon","keonho"],intro:"你们在咖啡馆休息时，发现桌边有一本没有写名字的小笔记本。Haru 暂时帮忙保管，James 和 Seonghyeon 一起查看封面有没有线索。",choices:[
+["先交给店员保管","你们把笔记本交给 Haru，并留下发现的位置。Haru 说如果有人回来寻找，就能顺利归还。","妥善保管"],
+["在附近询问是否有人遗失","James 和 Keonho 在附近礼貌询问，Seonghyeon 留在原地等候。很快有人回来寻找，笔记本顺利物归原主。","归还笔记本"],
+["检查封面上的公开标记","你们只查看封面上明显的标记，没有翻阅私人内容。最后找到一个可以联系失主的公开线索。","寻找线索"]]},
+{id:"11",title:"五个人的歌单交换",icon:"🎵",cast:["james","martin","juhoon","seonghyeon","keonho"],intro:"大家决定交换一份适合不同场景的音乐主题清单。有人想要散步时听的，有人想要专注时听的。James 把空白卡片放到桌上。",choices:[
+["制作一份散步歌单主题卡","你们把卡片设计成城市散步地图，每个人补充一个适合散步的场景。","散步歌单卡"],
+["制作一份专注时刻主题卡","大家讨论安静、轻快和舒缓等不同氛围，最后整理成一张学习与创作场景卡。","专注主题卡"],
+["制作一份开心时刻主题卡","你们选了明亮的颜色，把适合庆祝和放松的场景写在卡片上。","开心主题卡"]]},
+{id:"12",title:"首尔日记的最后一页",icon:"📔",cast:["james","martin","juhoon","seonghyeon","keonho"],intro:"你翻开之前收集的首尔日记。James、Martin、Juhoon、Seonghyeon 和 Keonho 都在场。大家一起回顾这段时间发生的小事。",choices:[
+["整理最难忘的三个瞬间","大家各自选出一个记忆。你们把它们写进日记最后一页，给这段首尔生活留下温柔的注脚。","难忘瞬间"],
+["把故事按时间顺序整理","你们把便签、路线和活动记录排在一起。原来许多偶然的小事，已经连成了一段完整旅程。","时间线"],
+["留下空白，等待下一次故事","大家决定不急着写结尾。日记最后留下一页空白，等待下一次新的城市日常。","未完待续"]]}
+];
+let cCurrent=null,cDone=false;
+function cLoad(){try{return JSON.parse(localStorage.getItem("mls-cortis-story")||'{"played":0,"memories":[],"history":[]}')}catch(e){return {played:0,memories:[],history:[]}}}
+function cSave(s){localStorage.setItem("mls-cortis-story",JSON.stringify(s))}
+function c$(id){return document.getElementById(id)}
+function cRender(){
+ const s=cLoad();c$("cortisPlayed").textContent=s.played||0;
+ c$("cortisMemory").textContent=s.memories&&s.memories.length?s.memories.slice(-8).map((m,i)=>(i+1)+". "+m).join("　·　"):"还没有共同回忆。选择一个故事开始吧！";
+}
+window.openCortis=function(){
+ show("cortis",4);cRender();
+};
+window.closeCortisStory=function(){c$("cortisStory").classList.add("hidden");};
+function cStart(id){
+ const e=C_STORIES.find(x=>x.id===id);if(!e)return;cCurrent=e;cDone=false;
+ c$("cortisStory").classList.remove("hidden");c$("cortisStoryTitle").textContent=e.icon+" "+e.title;
+ c$("cortisCast").innerHTML=e.cast.map(x=>'<span class="cortis-chip">'+C_NAMES[x]+'</span>').join("")+(e.special?'<span class="cortis-chip">⭐ 特别支线</span>':"");
+ c$("cortisNarrative").textContent=e.intro;c$("cortisChoices").innerHTML="";
+ e.choices.forEach((choice,i)=>{const b=document.createElement("button");b.className="cortis-choice";b.textContent=(i+1)+". "+choice[0];b.onclick=()=>cChoose(i);c$("cortisChoices").appendChild(b)});
+ c$("cortisOutcome").classList.add("hidden");c$("cortisReturn").classList.add("hidden");
+ c$("cortisStory").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function cChoose(i){
+ if(cDone||!cCurrent)return;cDone=true;
+ const e=cCurrent,ch=e.choices[i],s=cLoad();s.played=(s.played||0)+1;s.memories=s.memories||[];s.history=s.history||[];
+ s.memories.push(e.title+" · "+ch[2]);s.history.push({id:e.id,choice:i,at:new Date().toISOString()});cSave(s);
+ c$("cortisChoices").classList.add("hidden");
+ c$("cortisNarrative").textContent=e.intro;
+ c$("cortisOutcome").textContent=ch[1];c$("cortisOutcome").classList.remove("hidden");
+ c$("cortisReturn").classList.remove("hidden");cRender();
+}
+const list=c$("cortisEvents");
+C_STORIES.forEach(e=>{const b=document.createElement("button");b.className="cortis-event";b.innerHTML=e.icon+"<strong>"+e.title+(e.special?" ⭐":"")+"</strong><small>"+(e.special?"Martin 特别支线":"多种选择 · 预设剧情对话")+"</small>";b.onclick=()=>cStart(e.id);list.appendChild(b)});
+cRender();
+})();
+</script>
+
 </body>
 </html>
