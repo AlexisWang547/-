@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#fff4fb">
+<title>MY LITTLE SEOUL · CORTIS OOC</title>
+<style>
+:root{--ink:#51465e;--muted:#8d8193;--pink:#ffb8cd;--purple:#cbb9f2;--blue:#b9e1f5;--cream:#fff9ed;--line:#f0dfed;--shadow:0 8px 22px rgba(111,86,120,.10)}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 8% 5%,#ffeaf3,transparent 30%),radial-gradient(circle at 92% 12%,#e7f6ff,transparent 28%),#fff9ed;color:var(--ink);font-family:"Trebuchet MS","PingFang SC","Microsoft YaHei",sans-serif}
+button{font:inherit;color:inherit;border:0;cursor:pointer}.wrap{max-width:960px;margin:auto;padding:18px 15px 60px}.top{display:flex;justify-content:space-between;align-items:center;gap:10px}.brand{font-weight:900;color:#806895;letter-spacing:1px}.pill{background:white;border:2px solid var(--line);border-radius:99px;padding:8px 12px;font-size:12px;font-weight:800}
+.hero,.panel{background:rgba(255,255,255,.9);border:3px solid white;border-radius:25px;padding:18px;box-shadow:var(--shadow);margin:14px 0}.hero{background:linear-gradient(135deg,#f8eaff,#eaf6ff 55%,#fff0e8)}h1{font-size:clamp(26px,6vw,40px);margin:8px 0;color:#79638e}.sub,.hint,.note{color:var(--muted);font-size:13px;line-height:1.7}.members{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.member{background:#fff;border:3px solid white;border-radius:20px;padding:9px;box-shadow:var(--shadow);text-align:center}.member img{width:100%;height:190px;object-fit:cover;object-position:top center;border-radius:14px;background:#f4edf8}.member b{display:block;margin-top:7px;color:#79638e}.member small{font-size:11px;color:var(--muted)}
+.events{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.event{background:#fff;border:2px solid #eee2f2;border-radius:18px;padding:13px;text-align:left;min-height:112px;box-shadow:0 4px 0 #eee4f3}.event strong{display:block;margin:5px 0;color:#765e8b}.event small{font-size:11px;color:var(--muted);line-height:1.5}.stage{background:linear-gradient(145deg,#fff8fd,#f0f7ff);border:2px solid white;border-radius:20px;padding:14px;margin-top:12px}.cast{display:flex;gap:7px;flex-wrap:wrap;margin:8px 0}.chip{background:white;border:1px solid #e9dff0;border-radius:99px;padding:6px 10px;font-size:12px;font-weight:800}.chat{background:#fff;border-radius:15px;padding:12px;margin:10px 0;line-height:1.8;font-size:14px;white-space:pre-wrap}.choice{display:block;width:100%;text-align:left;background:#fff;border:2px solid #eee2f2;border-radius:14px;padding:12px;margin:8px 0;font-size:13px;line-height:1.5}.primary{background:#ffb5c7;padding:12px 18px;border-radius:15px;font-weight:900;box-shadow:0 4px 0 #e98da7}.secondary{background:#e5f4ff;padding:10px 14px;border-radius:14px;font-weight:800}.input{width:100%;min-height:80px;border:2px solid #eadff0;border-radius:14px;padding:11px;font:inherit;font-size:14px;resize:vertical}.hidden{display:none!important}.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.memory{line-height:1.8;font-size:13px}
+@media(min-width:700px){.members{grid-template-columns:repeat(5,minmax(0,1fr))}.member img{height:210px}.events{grid-template-columns:repeat(3,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><div class="brand">🌙 MY LITTLE SEOUL</div><div class="pill">📖 已体验 <span id="played">0</span> 次</div></div>
+  <section class="hero">
+    <div style="font-size:34px">🎬🎧✨</div>
+    <h1>CORTIS OOC STORY</h1>
+    <div class="sub">首尔的另一种日常 · Every choice becomes a story</div>
+    <p>不是成员聊天打卡，而是由你的选择推动的虚构日常故事。James 已经是你的朋友，其他成员也会自然加入不同事件。</p>
+    <p class="note">本页面为粉丝创作的虚构 OOC 情节，不代表成员真实私生活、言行或性格。人物对话与事件均为原创虚构内容。</p>
+  </section>
+
+  <section class="panel">
+    <div class="row"><b>🌟 CORTIS 成员</b><span class="note">人物卡</span></div>
+    <div class="members">
+      <div class="member"><img src="./james.png.JPG" alt="James"><b>JAMES</b><small>玩家已有的朋友</small></div>
+      <div class="member"><img src="./martin.png.JPG" alt="Martin"><b>MARTIN</b><small>含特别个人支线</small></div>
+      <div class="member"><img src="./juhoon.png.jpg" alt="Juhoon"><b>JUHOON</b><small>集体故事成员</small></div>
+      <div class="member"><img src="./seonghyeon.png.jpg" alt="Seonghyeon"><b>SEONGHYEON</b><small>集体故事成员</small></div>
+      <div class="member"><img src="./keonho.png.jpg" alt="Keonho"><b>KEONHO</b><small>集体故事成员</small></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="row"><b>🎲 今天发生什么？</b><span class="note">选择一个情境</span></div>
+    <p class="hint">同一个情境可以重复体验。选择会被记录，形成你的故事记忆。</p>
+    <div class="events">
+      <button class="event" onclick="start('practice')">🎧<strong>练习室临时集合</strong><small>本来只想找 James，却发现大家都在。</small></button>
+      <button class="event" onclick="start('snack')">🍙<strong>便利店补给任务</strong><small>临时采购，意见却越来越多。</small></button>
+      <button class="event" onclick="start('game')">🎮<strong>深夜游戏局</strong><small>抽到什么挑战，就要认真完成。</small></button>
+      <button class="event" onclick="start('outing')">🌳<strong>临时出游计划</strong><small>大家对目的地有不同想法。</small></button>
+      <button class="event" onclick="start('creative')">🎨<strong>创意挑战日</strong><small>一起想主题、做海报、完成小作品。</small></button>
+      <button class="event" onclick="start('group')">🍰<strong>没有计划的一天</strong><small>一段普通但可能很好笑的集体日常。</small></button>
+    </div>
+  </section>
+
+  <section id="story" class="panel hidden">
+    <div class="row"><b id="title">故事</b><button class="secondary" onclick="closeStory()">收起</button></div>
+    <div class="stage">
+      <div id="cast" class="cast"></div>
+      <div id="narrative" class="chat"></div>
+      <div id="choices"></div>
+      <div id="free" class="hidden">
+        <b>💬 你还想补充什么？</b>
+        <p class="note">自由输入会保存为本次剧情记录，并接上预设反馈；当前版本不是实时 AI 对话。</p>
+        <textarea id="reply" class="input" placeholder="写下你想说的话……"></textarea>
+        <button class="primary" style="margin-top:9px" onclick="submitReply()">发送并记录</button>
+      </div>
+      <div id="result" class="chat hidden"></div>
+      <button id="backHall" class="secondary hidden" onclick="closeStory()">回到故事大厅</button>
+    </div>
+  </section>
+
+  <section class="panel">
+    <b>📔 我们的故事记忆</b>
+    <div id="memory" class="memory hint">还没有共同回忆。选一个情境开始吧！</div>
+  </section>
+</div>
+<script>
+const names={james:"James",martin:"Martin",juhoon:"Juhoon",seonghyeon:"Seonghyeon",keonho:"Keonho"};
+const events={
+practice:{title:"练习室临时集合",cast:["james","martin","juhoon"],intro:"你推开练习室的门，James 正在收拾东西。Martin 和 Juhoon 也在场。James 看见你，抬手打了个招呼：“来得正好，我们刚好在讨论接下来做什么。”",choices:[["先问大家是不是需要帮忙。","James 把一张写着待办事项的小纸递给你。Martin 指了指其中一项：“这个好像挺有意思。”"],["提议大家休息十分钟。","大家终于停下手里的事。Martin 选了一个轻松的话题，气氛一下子松弛下来。"],["直接加入他们正在讨论的话题。","你提出了自己的想法。Juhoon 接着补充，James 则把你们的点子记了下来。"]]},
+snack:{title:"便利店补给任务",cast:["james","martin","keonho"],intro:"晚上，大家发现饮料和零食不够了。James 问你要不要一起去便利店。Martin 拿着购物篮，Keonho 正在研究货架上的新品。",choices:[["先列清单，避免买漏。","James 负责核对清单，Martin 发现清单里还缺了一样大家都想吃的东西。"],["让每个人挑一件最想吃的。","购物篮很快变得五花八门。Keonho 把选择权交给你：最后再加一件什么？"],["挑战预算内买齐大家的东西。","你们开始比较价格和包装。Martin 认真算了算，最后成功把清单控制在预算内。"]]},
+game:{title:"深夜游戏局",cast:["martin","seonghyeon","keonho"],intro:"客厅里摆好了桌游。Martin 把规则卡放在桌上，Seonghyeon 已经准备好计分，Keonho 则说：“这局应该会很有趣。”",choices:[["选择团队合作模式。","大家开始交换线索。Martin 提醒你们先统一策略，再决定下一步。"],["选择随机挑战模式。","抽到的任务让所有人都笑了起来。你决定先观察一轮，再加入挑战。"],["主动担任记录员。","你负责记录分数和关键线索，大家发现这让游戏顺畅了不少。"]]},
+outing:{title:"临时出游计划",cast:["james","juhoon","seonghyeon"],intro:"天气意外地不错，James 在群聊里问大家要不要出门。Juhoon 想去汉江边，Seonghyeon 提议先找一家咖啡馆。",choices:[["先去汉江散步。","大家决定带上饮料，沿着河边慢慢走。路上你们还拍下了几张城市风景。"],["先找咖啡馆坐一会儿。","你们找到一家靠窗的小店，开始讨论下一站。James 把这个地点记进了共同地图。"],["让大家抽签决定。","抽签结果出炉，路线变成了一场小小的即兴冒险。"]]},
+creative:{title:"创意挑战日",cast:["martin","james","seonghyeon"],intro:"桌上放着彩纸、贴纸和几支彩笔。今天的任务是一起设计一张首尔主题明信片。Martin 问你：“要不要先决定整体风格？”",choices:[["先确定主题和配色。","你们选定了温柔的夜景主题。Martin 把想法整理成草图，其他人开始补充细节。"],["先自由画，再组合想法。","桌面上出现了许多不同的小图案。James 提议把它们拼成一张完整作品。"],["让每个人负责一个部分。","大家各自完成一块，最后把不同风格组合在一起，意外地很协调。"]]},
+group:{title:"没有计划的一天",cast:["james","martin","juhoon","seonghyeon","keonho"],intro:"今天没有安排特别的任务。你来到休息区时，五个人正围着一张桌子，有人在翻杂志，有人在挑音乐。James 看见你：“今天不赶时间，要不要一起待一会儿？”",choices:[["提议轮流分享最近发现的有趣事物。","话题从一家新店跳到一部电影，又从城市角落跳到奇怪的小知识。每个人都贡献了一点新发现。"],["玩一轮快速问答。","问题越来越有趣。你发现大家的答案各不相同，讨论也变得热闹起来。"],["什么都不安排，就一起休息。","没有任务，也没有时间表。你们只是聊聊天、听听音乐，度过了很放松的一段时间。"]]}
+};
+let current=null,chosen=false;
+function load(){try{return JSON.parse(localStorage.getItem("mls-cortis-story")||'{"played":0,"memories":[],"history":[]}')}catch(e){return {played:0,memories:[],history:[]}}}
+function save(s){localStorage.setItem("mls-cortis-story",JSON.stringify(s))}
+function refresh(){const s=load();document.getElementById("played").textContent=s.played||0;document.getElementById("memory").textContent=s.memories&&s.memories.length?s.memories.slice(-6).map((m,i)=>(i+1)+". "+m).join("　·　"):"还没有共同回忆。选一个情境开始吧！"}
+function start(id){current=id;chosen=false;const e=events[id];document.getElementById("story").classList.remove("hidden");document.getElementById("title").textContent=e.title;document.getElementById("cast").innerHTML=e.cast.map(x=>'<span class="chip">'+names[x]+'</span>').join("");document.getElementById("narrative").textContent=e.intro;document.getElementById("choices").innerHTML="";e.choices.forEach((c,i)=>{const b=document.createElement("button");b.className="choice";b.textContent=(i+1)+". "+c[0];b.onclick=()=>choose(i);document.getElementById("choices").appendChild(b)});document.getElementById("choices").classList.remove("hidden");document.getElementById("free").classList.add("hidden");document.getElementById("result").classList.add("hidden");document.getElementById("backHall").classList.add("hidden");document.getElementById("story").scrollIntoView({behavior:"smooth",block:"start"})}
+function choose(i){if(chosen)return;chosen=true;const e=events[current],s=load();s.played=(s.played||0)+1;s.memories=s.memories||[];s.history=s.history||[];s.memories.push(e.title+"："+e.choices[i][0]);s.history.push({event:current,choice:i,at:new Date().toISOString()});save(s);document.getElementById("choices").classList.add("hidden");document.getElementById("narrative").textContent=e.intro+"\n\n"+e.choices[i][1];document.getElementById("free").classList.remove("hidden");refresh()}
+function submitReply(){const box=document.getElementById("reply"),t=box.value.trim(),out=document.getElementById("result");if(!t){out.textContent="可以先写一句你想说的话。";out.classList.remove("hidden");return}const s=load();s.history.push({event:current,reply:t,at:new Date().toISOString()});s.lastReply=t;save(s);out.textContent='你写下了：“'+t+'”\n\n这句话已经保存在本地故事记录中。今天的这一幕暂时收在这里，下一次可以继续探索新的情境。';out.classList.remove("hidden");document.getElementById("free").classList.add("hidden");document.getElementById("backHall").classList.remove("hidden");box.value="";refresh()}
+function closeStory(){document.getElementById("story").classList.add("hidden");window.scrollTo({top:0,behavior:"smooth"})}
+refresh();
+</script>
+</body>
+</html>
