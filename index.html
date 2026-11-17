@@ -83,7 +83,15 @@ h1{font-size:clamp(28px,7vw,44px);margin:10px 0 4px;letter-spacing:2px;color:#79
 .note{font-size:12px;color:#9a8a9d;line-height:1.6}
 .toast{position:fixed;left:50%;bottom:85px;transform:translateX(-50%);background:#594e68;color:white;padding:10px 16px;border-radius:99px;font-size:13px;z-index:50;box-shadow:var(--shadow)}
 @media(min-width:700px){.city-grid{grid-template-columns:repeat(4,1fr)}.place{min-height:175px}.wrap{padding-top:25px}.academy-scene{padding:25px}.letter-grid{grid-template-columns:repeat(6,1fr)}}
-.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:9px;margin-top:14px}.sent{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-bottom:1px dashed var(--line)}</style>
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:9px;margin-top:14px}.sent{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-bottom:1px dashed var(--line)}
+.james-portrait-wrap{width:100%;min-height:260px;display:grid;place-items:center;background:linear-gradient(145deg,#fff0f5,#e9f6ff);border:2px solid white;border-radius:22px;padding:12px;overflow:hidden}
+.james-portrait{display:block;width:100%;max-width:330px;height:340px;object-fit:contain;object-position:center bottom}
+.portrait-fallback{display:none;text-align:center;color:#8d8193;font-size:13px;line-height:1.7;padding:30px}
+.james-dialogue{margin-top:12px;background:#fff8ed;border:2px dashed #edcfaa;border-radius:18px;padding:14px;line-height:1.8}
+.james-dialogue-controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.james-dialogue-controls button{flex:1;min-width:110px}
+.james-quote{color:#a35e83;font-weight:900}
+</style>
 </head>
 <body>
 <div id="app">
@@ -323,7 +331,7 @@ function markStudy(){
 <script>
 const $=id=>document.getElementById(id);
 const SC={
-room:{t:"🎧 练习室 · James",em:"🧑‍🎤",img:"https://alexiswang547.github.io/-/356C87E6-F747-415A-9CEE-A6461D36608B.png",back:"goCity",line:"안녕! 今天想和我一起学习韩语吗？先点点今天的韩语，再来练几句常用的。",cards:[["안녕하세요","Annyeonghaseyo · 你好"]],qs:[
+room:{t:"🎧 练习室 · James",em:"🧑‍🎤",img:"./356C87E6-F747-415A-9CEE-A6461D36608B.png?v=4",back:"goCity",line:"안녕! 今天想和我一起学习韩语吗？先点点今天的韩语，再来练几句常用的。",cards:[["안녕하세요","Annyeonghaseyo · 你好"]],qs:[
  ["第一次见面，想说“你好”：","안녕하세요","감사합니다","죄송합니다",["안녕하세요","你好"]],
  ["别人帮了你，想说“谢谢”：","감사합니다","안녕하세요","죄송합니다",["감사합니다","谢谢"]],
  ["不小心撞到人，想说“对不起”：","죄송합니다","감사합니다","안녕하세요",["죄송합니다","对不起"]],
@@ -341,7 +349,24 @@ word:{t:"🧸 拼字工坊",em:"🐻‍❄️",back:"openAcademy",big:1,line:"�
  cards:[["가","ga"],["나","na"],["다","da"],["마","ma"],["사","sa"],["아","a"],["고","go"],["시","si"],["무","mu"]],qs:[
  ["ㄴ + ㅏ = ?","나","가","마"],["ㅁ + ㅏ = ?","마","나","사"],["ㄱ + ㅗ = ?","고","가","구"],["ㅅ + ㅣ = ?","시","사","소"],["ㅁ + ㅜ = ?","무","마","모"]]}
 };
-let sc=null,qi=0,lock=false;
+let sc=null,qi=0,lock=false,dialogueIndex=0;
+const JAMES_DIALOGUE=[
+ "菡宝，欢迎回来！今天也辛苦啦。先把烦恼放在门外一会儿，我们慢慢来。",
+ "你知道吗？喜欢一个人的舞台和作品，也可以成为自己努力的动力。希望你也能找到属于自己的闪闪发光的时刻。",
+ "练习韩语不用着急。今天记住一个词，明天再多会一句，积累起来就很了不起了。",
+ "如果今天有点累，就休息一下再继续。休息不是放弃，照顾好自己也很重要。",
+ "<span class='james-quote'>菡宝，你永远是你最好最棒的朋友💕</span>",
+ "谢谢你把喜欢和支持放进这个小小的首尔。希望这里能成为你练习、收集勇气、慢慢靠近梦想的地方。",
+ "最后，一起说一句韩语吧：오늘도 수고했어요！意思是：今天也辛苦了！你已经做得很好啦。"
+];
+function renderJamesDialogue(){
+ const line=JAMES_DIALOGUE[dialogueIndex];
+ $('scLine').innerHTML=`<div class="james-dialogue"><b>James：</b><br>${line}<div class="james-dialogue-controls"><button class="secondary" onclick="say('안녕하세요')">🔊 听韩语问候</button><button class="primary" onclick="nextJamesLine()">${dialogueIndex===JAMES_DIALOGUE.length-1?'再听一遍':'下一句 →'}</button></div><small class="note">游戏原创的粉丝互动剧情</small></div>`;
+}
+function nextJamesLine(){
+ if(dialogueIndex<JAMES_DIALOGUE.length-1){dialogueIndex++;}else{dialogueIndex=0;}
+ renderJamesDialogue();
+}
 function say(t){if(!("speechSynthesis" in window)){toast("当前浏览器暂不支持语音朗读");return;}const u=new SpeechSynthesisUtterance(t);u.lang="ko-KR";u.rate=.8;const v=speechSynthesis.getVoices().find(x=>x.lang&&x.lang.toLowerCase().startsWith("ko"));if(v)u.voice=v;speechSynthesis.cancel();speechSynthesis.speak(u);}
 function show(id,n){document.querySelectorAll('#app>section,#app>main').forEach(e=>e.classList.add('hidden'));$(id).classList.remove('hidden');$('bottomNav').classList.toggle('hidden',id==='welcome');document.querySelectorAll('.footer-nav button').forEach((b,i)=>b.classList.toggle('active',i===n));window.scrollTo(0,0);}
 function goCity(){show('city',0);updateStats();}
@@ -349,10 +374,24 @@ function openAcademy(){show('academy',1);renderLetters();updateStats();}
 function openBook(){show('book',2);renderBook();}
 function openMe(){show('me',3);updateStats();renderMe();}
 function openRoom(){show('myroom',0);renderShop();}
-function openScene(k){sc=SC[k];sc.k=k;qi=0;lock=false;show('scene',0);$('scT').textContent=sc.t;$('scEm').innerHTML=sc.img?`<img src="${sc.img}" alt="James" style="width:110px;border-radius:16px;display:block" onerror="this.onerror=function(){this.outerHTML=sc.em};this.src=sc.img.split('/').pop()">`:sc.em;$('scLine').textContent=sc.line;
+function openScene(k){
+ sc=SC[k];sc.k=k;qi=0;lock=false;show('scene',0);
+ $('scT').textContent=sc.t;
+ if(sc.img){
+  $('scEm').innerHTML=`<div class="james-portrait-wrap"><img class="james-portrait" src="${sc.img}" alt="James 人物立绘" onerror="this.style.display='none';this.parentElement.querySelector('.portrait-fallback').style.display='block'"><div class="portrait-fallback">James 的立绘暂时没有加载出来。<br>请确认图片文件已上传到 GitHub 仓库根目录，文件名与代码一致。</div></div>`;
+ }else{
+  $('scEm').textContent=sc.em;
+ }
+ if(k==='room'){dialogueIndex=0;renderJamesDialogue();}
+ else{$('scLine').textContent=sc.line;}
  const g=$('scCards');g.innerHTML="";g.classList.toggle('hidden',!sc.cards);
- (sc.cards||[]).forEach(c=>{const b=document.createElement('button');b.className='letter-card';b.innerHTML=`<span class="glyph">${c[0]}</span><small>${c[1]}</small>`;b.onclick=()=>say(c[0]);if(c[0].length>2)b.querySelector('.glyph').style.fontSize='22px';g.appendChild(b);});
- renderQ();}
+ (sc.cards||[]).forEach(c=>{
+  const b=document.createElement('button');b.className='letter-card';
+  b.innerHTML=`<span class="glyph">${c[0]}</span><small>${c[1]}</small>`;
+  b.onclick=()=>say(c[0]);if(c[0].length>2)b.querySelector('.glyph').style.fontSize='22px';g.appendChild(b);
+ });
+ renderQ();
+}
 function renderQ(){
  if(qi>=sc.qs.length){finishScene();return;}
  const q=sc.qs[qi],opts=[q[1],q[2],q[3]].sort(()=>Math.random()-.5);
@@ -451,7 +490,7 @@ function say(t){
  if(!("speechSynthesis" in window)){toast("当前浏览器暂不支持语音朗读");return;}
  if(!koVoice)pickVoice();
  if(!koVoice){toast("这个设备还没有韩语语音。可在系统设置里下载韩语语音，或换 Chrome / Safari 试试");return;}
- const u=new SpeechSynthesisUtterance(JAMO[t]||t);u.voice=koVoice;u.lang=koVoice.lang;u.rate=.85;u.pitch=1;
+ const u=new SpeechSynthesisUtterance(JAMO[t]||t);u.voice=koVoice;u.lang=koVoice.lang;u.rate=.92;u.pitch=1.02;
  speechSynthesis.cancel();setTimeout(()=>speechSynthesis.speak(u),60);}
 function speakCurrent(){say(vowels[selectedIndex].ch);}
 </script>
